@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/adminStyle.css}">
+    <title>Страница</title>
+</head>
+<body>
+<header>
+    <a th:href="@{/}">
+        <div> Назад </div>
+    </a>
+</header>
+
+<div id="adminLink">
+    <a th:href="@{/allUsers}"> Все пользователи </a>
+    <a th:href="@{/addGame}"> Добавить игру </a>
+</div>
+</body>
+</html>

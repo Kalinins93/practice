@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Вход</title>
+        <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+        <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+        <link rel="stylesheet" th:href="@{/styles/cssandjs/formStyle.css}">
+    </head>
+    <body>
+        <header>
+            <a th:href="@{/}">
+                <div> Назад </div>
+            </a>
+        </header>
+        <form th:action="@{/login}" method="post">
+            <table>
+                <tr>
+                    <td class="labelOfInput"> Почта: </td>
+                    <td> <input type="email" placeholder="Почта" name="email"  class="inputFields" required/> </td>
+                </tr>
+                <tr>
+                    <td class="labelOfInput"> Пароль: </td>
+                    <td> <input type="password" placeholder="Пароль" name="hashcode" class="inputFields" required/> </td>
+                </tr>
+            </table>
+
+            <p id="submitP"> <input type="submit" value="[Войти]" /> </p>
+        </form>
+    </body>
+</html>

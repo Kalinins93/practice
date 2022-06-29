@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/cartPageStyle.css}">
+    <title> Корзина [[${ session.currentUser.name }]] </title>
+</head>
+<body>
+<header>
+
+    <a th:href="@{/}"> <div> Обозревать  </div> </a>
+    <th:block th:if="${session.currentUser != null}">
+        <a th:href="@{/users?id={user}(user=${session.currentUser.id})}"> <div> Библиотека </div> </a>
+    </th:block>
+
+    <th:block th:if="${session.currentUser == null}">
+        <a th:href="@{/login}"> <div> Войти </div> </a>
+        <a th:href="@{/reg}"> <div> Регистрация </div> </a>
+    </th:block>
+
+    <a th:if="${session.currentUser != null}" th:href="@{/logout}"> <div> Выйти </div> </a>
+
+    <th:block th:if="${session.currentUser != null}">
+        <a th:if="${ @rolesRepo.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
+            <div> Страница админа </div>
+        </a>
+    </th:block>
+
+</header>
+
+    <div id="cartPageDiv">
+        <th:block th:if="${thisUserCart == null || thisUserCart.isEmpty() }">
+            Корзина пуста
+        </th:block>
+
+        <th:block th:if="${thisUserCart == null || ! thisUserCart.isEmpty() }">
+            <table>
+                <th:block th:each="game : ${thisUserCart}">
+                    <tr class="gameRowInCart">
+                        <td> <img th:src="@{'/images/' + ${game.imagename}}" alt="" class="gameImageInCart"> </td>
+                        <td th:utext="${game.title}" class="gameTitleInCart"> </td>
+                        <td th:utext="${game.price + ' руб.'}" class="priceInCart"> </td>
+                    </tr>
+                </th:block>
+            </table>
+
+            <div id="bottomOfCart">
+                <p th:text="${'В итоге: ' + #aggregates.sum(thisUserCart.![price])} + ' руб.'" id="totalPrice"> </p>
+                <p th:text="${ thisUserCart }"> </p>
+
+                <form action="#" th:action="@{/cart}" method="post">
+                    <input type="submit" value="[Купить]" />
+                </form>
+            </div>
+        </th:block>
+    </div>
+</body>
+</html>

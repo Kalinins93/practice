@@ -1,0 +1,55 @@
+#cartPageDiv
+{
+    height: 100vh;
+    background: #4e494c;
+    color: #ffffc7;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.gameRowInCart
+{
+    background: #00303b;
+}
+
+.gameTitleInCart
+{
+    color: #ffffc7;
+    width:100%;
+}
+
+.priceInCart
+{
+    min-width: 150px;
+    width: max-content;
+    color: #ffffc7;
+}
+
+.gameImageInCart
+{
+    height: 100px;
+}
+
+#bottomOfCart
+{
+    height: auto;
+    min-height: 30px;
+    width: 100%;
+    background: #d4984a ;
+    color: #ffffc7;
+    display: inline-block;
+}
+
+input[type="submit"]
+{
+    background: #d4984a;
+    border: 0;
+    font-size: x-large;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

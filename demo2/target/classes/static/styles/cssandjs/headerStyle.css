@@ -1,0 +1,33 @@
+header
+{
+    width: 100%;
+    heigth: 150px;
+    height: auto;
+    background: #00303b;
+    display: flex;
+    justify-content: space-around;
+    font-size: x-large;
+}
+
+header a
+{
+    text-decoration: none;
+    background: #00303b;
+    color: #ffffc7;
+    width: 100%;
+    transition: all 0.5s;
+    text-align: center;
+}
+
+header a:hover
+{
+    background: #d4984a;
+    color: #00303b;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

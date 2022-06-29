@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Регистрация </title>
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/formStyle.css}">
+</head>
+<body>
+    <header>
+        <a th:href="@{/}">
+            <div> Назад </div>
+        </a>
+    </header>
+    <form action="#" th:action="@{/reg}" method="post">
+        <table>
+            <tr>
+                <td class="labelOfInput"> Имя: </td>
+                <td> <input type="text" placeholder="Имя" name="name" class="inputFields" required /> </td>
+            </tr>
+            <tr>
+                <td class="labelOfInput"> Почта: </td>
+                <td> <input type="email" placeholder="Почта" name="email" class="inputFields" required /> </td>
+            </tr>
+            <tr>
+                <td class="labelOfInput"> Пароль: </td>
+                <td> <input type="password" placeholder="Пароль" name="hashcode" class="inputFields" required /> </td>
+            </tr>
+        </table>
+        <p id="submitP"> <input type="submit" value="[Зарегаться]" /> </p>
+    </form>
+</body>
+</html>
