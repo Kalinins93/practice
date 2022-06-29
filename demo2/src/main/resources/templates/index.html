@@ -1,0 +1,59 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/contentStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/gameCardStyle.css}">
+    <title>Polar</title>
+</head>
+<body>
+
+    <header>
+        <th:block th:if="${session.currentUser != null}">
+            <a th:href="@{/users?id={user}(user=${session.currentUser.id})}"> <div> Библиотека </div> </a>
+            <a th:href="@{/cart}"> <div> Корзина </div> </a>
+        </th:block>
+
+        <th:block th:if="${session.currentUser == null}">
+            <a th:href="@{/login}"> <div> Войти </div> </a>
+            <a th:href="@{/reg}"> <div> Регистрация </div> </a>
+        </th:block>
+
+        <a th:if="${session.currentUser != null}" th:href="@{/logout}"> <div> Выйти </div> </a>
+
+        <th:block th:if="${session.currentUser != null}">
+            <a th:if="${ @rolesRepo.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
+                <div> Страница админа </div>
+            </a>
+        </th:block>
+
+    </header>
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="keyword" th:value="${keyword}"  placeholder="Введите название игры" size="50" >
+            <button type="submit" class="btn btn-info" >[Поиск]</button>
+            <button type="submit" class="btn btn-info" >[Сброс]</button>
+        </form>
+
+        <div id="content" >
+
+        <!-- Вывод карточек игр -->
+        <th:block th:each="game : ${games}">
+            <a th:href="@{/games?gameId={id} (id=${game.id}) }" class="CardCover">
+                <div class="gameCard">
+                    <img th:src="@{'/images/' + ${game.imagename}}" alt="" class="cardGameImage">
+                    <p class="gameCardTitle">
+                        <th:block th:utext="${game.title}"></th:block>
+                    </p>
+                    <p class="gameCardPrice">
+                        <th:block th:utext="${game.price} + ' руб.'"></th:block>
+                    </p>
+                </div>
+            </a>
+        </th:block>
+
+        </div>
+</body>
+</html>

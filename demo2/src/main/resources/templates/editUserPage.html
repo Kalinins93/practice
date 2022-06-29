@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/formStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/editUserStyle.css}">
+    <title>Редактировать страницу</title>
+</head>
+<body>
+<header>
+    <a th:href="@{'/users?id=' + ${oldUserdata.id} }">
+        <div> Назад </div>
+    </a>
+</header>
+<div>
+
+    <form th:action="@{/editUser}" method="post" enctype="multipart/form-data">
+        <div id="yourIconDiv">
+            <img th:src="@{'/images/' + ${oldUserdata.iconname}}" alt="" id="userIcon">
+            <p> Ваша аватарка </p>
+        </div>
+        <table>
+            <tr>
+                <td class="labelOfInput"> Имя: </td>
+                <td> <input type="text" placeholder="Имя" th:value="${oldUserdata.name}" name="name" class="inputFields"/> </td>
+            </tr>
+            <tr>
+                <td class="labelOfInput"> Почта: </td>
+                <td> <input type="email" placeholder="Почта" th:value="${oldUserdata.email}" name="email" class="inputFields" /> </td>
+            </tr>
+            <tr>
+                <td class="labelOfInput"> Пароль: </td>
+                <td> <input type="password" placeholder="Пароль" th:value="${oldUserdata.hashcode}" name="hashcode" class="inputFields" /> </td>
+            </tr>
+            <tr>
+                <td class="labelOfInput"> Аватарка: </td>
+                <td> <input type="file" accept="image/*" name="icon" class="inputFields" /> </td>
+            </tr>
+        </table>
+        <input type="hidden" name="id" th:value="${oldUserdata.id}"/>
+        <p id="submitP"> <input type="submit" value="[Сохранить изменения]" /> </p>
+    </form>
+</div>
+</body>
+</html>

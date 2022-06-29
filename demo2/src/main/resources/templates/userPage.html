@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/userPageStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/gameCardStyle.css}">
+    <title> Страница [[${thisUser.name}]] </title>
+</head>
+<body>
+
+<header>
+    <a th:href="@{/}"> <div> Обозревать  </div> </a>
+
+    <th:block th:if="${session.currentUser != null}">
+        <a th:href="@{/cart}"> <div> Корзина </div> </a>
+    </th:block>
+
+    <th:block th:if="${session.currentUser == null}">
+        <a th:href="@{/login}"> <div> Войти </div> </a>
+        <a th:href="@{/reg}"> <div> Регистрация </div> </a>
+    </th:block>
+
+    <a th:if="${session.currentUser != null}" th:href="@{/logout}"> <div> Выйти </div> </a>
+
+    <th:block th:if="${session.currentUser != null}">
+        <a th:if="${ @rolesRepo.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
+            <div> Страница админа </div>
+        </a>
+    </th:block>
+
+</header>
+        <div id="userPageContainer">
+
+            <!-- Левая часть пользоват. страницы -->
+            <div class="userSection" id="leftSide">
+                <th:block th:if="${session.currentUser != null && session.currentUser.id == thisUser.id}">
+                    <div id="editProfile"> <a th:href="@{/editUser?id={user}(user=${session.currentUser.id})}"> [Редактировать профиль] </a> </div>
+                </th:block>
+
+                <img th:src="@{'/images/' + ${thisUser.iconname}}" alt="" id="userIcon">
+                <p th:utext="${thisUser.name}" id="userNameTitle"> </p>
+                <p th:utext="${thisUser.email}"> </p>
+
+            </div>
+
+            <!-- Правая часть пользоват. страницы -->
+            <div class="userSection" id="rightSide">
+
+                <!-- Вывод карточек игр пользовтеля -->
+                <th:block th:each="game : ${thisLibraryOfThisUser}">
+                    <div class="gameCard">
+                        <img th:src="@{'/images/' + ${game.imagename}}" alt="" class="cardGameImage">
+                        <p class="gameCardTitle">
+                            <th:block th:utext="${game.title}"></th:block>
+                        </p>
+                        <p id="gamePageLink">
+                            <a th:href="@{/games?gameId={id} (id=${game.id}) }"> Страница в магазине </a>
+                        </p>
+                        <a th:if="${session.currentUser != null && session.currentUser.id == thisUser.id}"
+                           href="C:/Users/user/Рабочий стол/demo2/placeholderFile.txt" download="game.txt" target="_blank">
+                            [ Скачать ]
+                        </a>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+
+    <script th:src="@{/styles/cssandjs/utils.css}"></script>
+</body>
+</html>

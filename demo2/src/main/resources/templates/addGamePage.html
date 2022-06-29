@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/formStyle.css}">
+    <title>Добавление игры</title>
+</head>
+<body>
+<header>
+    <a th:href="@{/}">
+        <div> Назад </div>
+    </a>
+</header>
+<form action="/addGame" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td class="labelOfInput"> Название: </td>
+            <td> <input type="text" placeholder="Название" name="title" class="inputFields" required/> </td>
+        </tr>
+        <tr>
+            <td class="labelOfInput"> Описание: </td>
+            <td> <input type="text" placeholder="Описание" name="description" class="inputFields" maxlength="600" required/> </td>
+        </tr>
+        <tr>
+            <td class="labelOfInput"> Цена: </td>
+            <td> <input type="number" placeholder="Цена" name="price" min="0" class="inputFields" required/> </td>
+        </tr>
+        <tr>
+            <td class="labelOfInput"> Превью: </td>
+            <td> <input type="file" name="poster" accept="image/*" required/> </td>
+        </tr>
+        <tr>
+            <td class="labelOfInput"> Скриншоты: </td>
+            <td> <input type="file" multiple="multiple" accept="image/*" name="screenshots" class="inputFields" required/> </td>
+        </tr>
+    </table>
+    <p id="submitP"> <input type="submit" value="[Добавить]" /> </p>
+</form>
+</body>
+</html>

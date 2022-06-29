@@ -1,0 +1,66 @@
+body
+{
+    background: #4e494c;
+}
+
+form
+{
+    width: max-content;
+    height: max-content;
+    background: #00303b;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+tr
+{
+    height: 50px;
+    width: 200px;
+}
+
+.labelOfInput
+{
+    color: #ffffc7;
+    font-size: 25px;
+    width: 120px;
+}
+
+#submitP
+{
+    text-align: center;
+}
+
+input
+{
+    font-family: monospace;
+    border: 0;
+    height: 30px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.inputFields
+{
+    padding-left: 5px;
+}
+
+input[type="submit"]
+{
+    background: #00303b;
+    color: #ffffc7;
+}
+
+input[type="submit"]:hover
+{
+    color: #d4984a;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

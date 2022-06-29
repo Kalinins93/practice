@@ -1,0 +1,95 @@
+body
+{
+    background: #4e494c;
+}
+
+#gameTitleDiv
+{
+    background: #d4984a;
+    color: #00303b;
+    font-size:larger;
+    min-height: 80px;
+    height: auto;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.pleaseLoginP
+{
+    color: #4e494c;
+}
+
+#gameTitle
+{
+    font-size: x-large;
+}
+
+#gameDescriptionDiv
+{
+    min-height: 50px;
+    height: 100%;
+    width: 100%;
+    background: #00303b;
+    color: #ffffc7;
+    padding: auto;
+    font-size: large;
+    text-align: center;
+}
+
+#gamePrice
+{
+    margin-bottom: 10px;
+}
+
+#descriptionP
+{
+    width: 70%;
+    text-align: justify;
+    text-align-last: center;
+    margin: 0 auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#imagesGalleryDiv
+{
+    min-height: 10px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-top: 15px;
+}
+
+.gameScreenshot
+{
+    min-width: 380px;
+    max-width: auto;
+    height: 300px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+input[type="submit"]
+{
+    font-size: 20px;
+    border: 0;
+    background: #d4984a;
+    color: #00303b;
+}
+
+input[type="submit"]:hover
+{
+    color: #ffffc7;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

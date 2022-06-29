@@ -1,0 +1,56 @@
+body
+{
+    background: #4e494c;
+}
+
+#content
+{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+
+form
+{
+    background: #00303b;
+    height: auto;
+    text-align: center;
+}
+
+input
+{
+    font-family: monospace;
+    border: 0;
+    height: 40px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.inputFields
+{
+    padding-left: 5px;
+}
+
+button
+{
+    background: #00303b;
+    color: #ffffc7;
+    height: 30px;
+    border: 0;
+    font-size: 18px;
+}
+
+button:hover
+{
+    color: #d4984a;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

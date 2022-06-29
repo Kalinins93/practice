@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/styles/cssandjs/allUserStyle.css}">
+    <title>Все пользователи</title>
+</head>
+<body>
+<header>
+    <a th:href="@{/admin}">
+        <div> Назад </div>
+    </a>
+</header>
+<div>
+    <table>
+        <tr>
+            <td> Аватар </td>
+            <td> Имя </td>
+            <td> Почта </td>
+            <td> Статус </td>
+            <td>  </td>
+            <td> Роль </td>
+            <td> </td>
+        </tr>
+        <tr th:each=" user : ${allUsers}" >
+            <td > <img th:src="@{'/images/' + ${user.iconname}}" alt="" class="userIcon"> </td>
+            <td> <a th:href="@{/users?id={userId} (userId=${ user.id })}" th:text="${user.name}"> </a> </td>
+            <td th:text="${user.email}"></td>
+
+            <td th:if="${ @bannedRepo.isBanned( user.id ) }" > Забанен </td>
+            <td th:if="${ ! @bannedRepo.isBanned( user.id ) }" > Не забанен </td>
+
+            <td th:if="${ @bannedRepo.isBanned( user.id ) }" >
+                <a th:href="@{ /unbanUser?id={userid} (userid=${ user.id }) }"> [ Разбанить ] </a>
+            </td>
+
+            <td th:if="${ ! @bannedRepo.isBanned( user.id ) }" >
+                <a th:href="@{ /banUser?id={userid} (userid=${ user.id }) }"> [ Забанить ] </a>
+            </td>
+
+            <td th:if="${ @rolesRepo.isAdmin( user.id ) } " > Админ </td>
+            <td th:if="${ ! @rolesRepo.isAdmin( user.id ) } " > Не админ </td>
+
+            <td th:if="${ @rolesRepo.isAdmin( user.id ) } " >
+                <a th:href="@{ /revokeAdmin?id={userid} (userid=${ user.id }) }"> [ Отозвать роль админа ] </a>
+            </td>
+            <td th:if="${ ! @rolesRepo.isAdmin( user.id ) } " >
+                <a th:href="@{ /grantAdmin?id={userid} (userid=${ user.id }) }"> [ Назначить админом ]</a>
+            </td>
+
+
+        </tr>
+    </table>
+</div>
+</body>
+</html>
