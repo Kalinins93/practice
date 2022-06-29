@@ -1,0 +1,24 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body
+{
+    width: 100%;
+}
+
+a
+{
+    text-decoration: none;
+    color: #ffffc7;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

@@ -1,0 +1,38 @@
+body
+{
+    background: #4e494c;
+}
+
+
+table
+{
+    width: max-content;
+    height: max-content;
+    background: #00303b;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffc7;
+    text-align: center;
+    font-size: larger;
+}
+
+td
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 50px;
+}
+
+.userIcon
+{
+    width: 100px;
+    height: 100px;
+}
+
+a:hover
+{
+    color: #d4984a;
+}

@@ -20,7 +20,7 @@ public class SpringDAO extends AbstractJdbcConfiguration
     public JdbcDataSource dataSource()
     {
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL("jdbc:h2:C:\\Users\\user\\Рабочий стол\\demo2\\src\\main\\java\\com\\example\\demo\\database\\dataBase\\shop");
+        ds.setURL("jdbc:h2:./src/main/java/com/example/demo/database/dataBase/shop;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
         ds.setUser("vlad");
         return ds;
     }

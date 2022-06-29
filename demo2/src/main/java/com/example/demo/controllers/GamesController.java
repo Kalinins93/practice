@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.database.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +22,7 @@ import java.util.List;
 @Controller
 public class GamesController
 {
+    /*
     @Autowired
     DataSource dataSource;
 
@@ -116,5 +116,7 @@ public class GamesController
         con.close();
         return "redirect:/";
     }
+
+     */
 
 }

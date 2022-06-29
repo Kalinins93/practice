@@ -1,0 +1,28 @@
+body
+{
+    background: #4e494c;
+}
+
+table
+{
+    font-size: large;
+    color: #ffffc7;
+}
+
+#adminLink
+{
+    display: flex;
+    justify-content: space-around;
+    font-size: larger;
+}
+
+a:hover
+{
+    color: #d4984a;
+}
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/

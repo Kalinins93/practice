@@ -1,18 +1,13 @@
 package com.example.demo.controllers;
 
-import com.example.demo.database.BannedRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
-import com.example.demo.database.RolesRepo;
-import com.example.demo.database.UsersRepo;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-
 import com.example.demo.models.Users;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,6 +15,7 @@ import java.sql.Statement;
 @Controller
 public class AdminController
 {
+    /*
     @Autowired
     RolesRepo rolesRepo;
 
@@ -100,5 +96,7 @@ public class AdminController
         return "redirect:/allUsers";
     }
 
+
+     */
 
 }

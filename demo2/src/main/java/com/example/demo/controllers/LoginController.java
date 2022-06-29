@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
-import com.example.demo.database.UsersRepo;
 import javax.servlet.http.HttpSession;
 import com.example.demo.models.Users;
 import org.springframework.ui.Model;
@@ -17,6 +16,7 @@ import java.sql.Statement;
 @Controller
 public class LoginController
 {
+    /*
     @Autowired
     DataSource dataSource;
 
@@ -78,6 +78,6 @@ public class LoginController
         return "redirect:/login";
     }
 
-
+*/
 
 }

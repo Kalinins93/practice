@@ -1,0 +1,61 @@
+#userPageContainer
+{
+    display: flex;
+    height: 100vh;
+}
+
+.userSection
+{
+    height: auto;
+}
+
+#leftSide
+{
+    color: #ffffc7;
+    background: #00303b;
+    width: 400px;
+    text-align: center;
+}
+
+#userNameTitle
+{
+    font-size: large;
+}
+
+#rightSide
+{
+    background: #4e494c;
+    padding-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#userIcon
+{
+    height: 300px;
+    width: 300px;
+}
+
+#editProfile
+{
+    margin-bottom: 10px;
+}
+
+#editProfile:hover
+{
+    color: #d4984a;
+}
+
+#gamePageLink:hover
+{
+    color: #d4984a;
+}
+
+/*
+#00303b -- черный
+#4e494c -- корич
+#d4984a -- горчичный
+#ffffc7 -- кремовый
+*/
