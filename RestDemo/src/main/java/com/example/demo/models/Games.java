@@ -10,27 +10,9 @@ public class Games
     private String description;
     private Integer price;
     private String imagename;
-    //private List<String> genres;
 
-    public Games(int id, String title, String description, Integer price, String imagename)
-    {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.imagename = imagename;
-    }
+    public Games(){}
 
-    /*
-        public Game(int id, String title, String description, int price, String ... genres)
-        {
-            this.id = id;
-            this.title = title;
-            this.description = description;
-            this.price = price;
-            this.genres = Arrays.asList(genres);
-        }
-    */
     public int getId()
     {
         return id;

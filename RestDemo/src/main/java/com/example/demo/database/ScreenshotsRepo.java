@@ -4,7 +4,6 @@ import com.example.demo.models.Screenshots;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
 public interface ScreenshotsRepo extends CrudRepository<Screenshots, Integer>
