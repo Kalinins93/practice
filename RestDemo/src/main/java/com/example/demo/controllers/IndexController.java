@@ -18,20 +18,6 @@ public class IndexController
     @Autowired
     GamesRepo gamesRepo;
 
-    @PostMapping("/getCurrentUser")
-    public User getCurrentUser(HttpSession session)
-    {
-        return (User) session.getAttribute("currentUser");
-    }
-
-    @PostMapping("/setCurrentUser")
-    public boolean setCurrentUser(HttpSession session, @RequestParam User user)
-    {
-        if(user == null) return false;
-        session.setAttribute("currentUser", user);
-        return true;
-    }
-
     @PostMapping("/getAllUser")
     public List<User> getAllUser()
     {

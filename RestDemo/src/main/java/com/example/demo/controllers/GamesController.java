@@ -39,15 +39,6 @@ public class GamesController
         return screenshotsRepo.getNamesByGameId(gameId);
     }
 
-    @PostMapping("/addGameToCart")
-    public boolean addGameToCart(HttpSession session, @RequestParam int gameId)
-    {
-        List<Game> gs = (List<Game>) session.getAttribute("cart");
-        gs.add( gamesRepo.getById(gameId) );
-        session.setAttribute( "cart", gs );
-        return true;
-    }
-
     @PostMapping("/addGame")
     public boolean afterAddGamePage(@RequestParam String title, @RequestParam String description,
                                    @RequestParam int price, @RequestParam MultipartFile poster,

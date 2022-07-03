@@ -17,9 +17,6 @@ public interface GamesRepo extends CrudRepository<Game, Integer>
     @Query("select * from games where id IN ( select idofgame from Libraries where idofuser = :userId )")
     List<Game> getAllGamesOfUser(@Param("userId") int idOfUser);
 
-    @Query("insert into games (title, description, price) values (:titleParam, :descriptionParam, :priceParam)")
-    int insert(@Param("titleParam") String title, @Param("descriptionParam") String description, @Param("priceParam") int price);
-
     @Query("select max(id) from games")
     int getMaxId();
 

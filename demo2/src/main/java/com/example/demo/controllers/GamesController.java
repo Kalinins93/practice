@@ -15,6 +15,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpSession;
+import java.nio.file.FileStore;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,9 +38,9 @@ public class GamesController
 
     // Страница для игры
     @GetMapping("/games")
-    public String loadGamePage(Model model, @RequestParam Integer gameId)
+    public String loadGamePage(Model model, @RequestParam Integer gameId, HttpSession session)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
         if ( usr != null && adminService.isBanned( usr.getId() )  )
             return "redirect:/ban";
 
@@ -49,31 +53,25 @@ public class GamesController
 
     // Добавление в корзину
     @PostMapping("/games")
-    public String addToCart(@RequestParam Integer gameId)
+    public String addToCart(@RequestParam Integer gameId, HttpSession session)
     {
-        if( cartService.getCart() == null )
-            cartService.emptyCart();
+        Game game = gameService.getGameById(gameId);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        List<Game> gameList = (List<Game>) session.getAttribute("cart");
 
-        RestTemplate restTemplate = new RestTemplate();
-        try
-        {
-            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
-            restTemplate.exchange("http://localhost:8081/addGameToCart",
-                    HttpMethod.POST, entity, Boolean.class, gameId );
-        }
-        catch (Exception e){}
+        if( gameList == null ) gameList = new ArrayList<>();
+        if( !gameList.contains( game ) ) gameList.add( game );
+
+        session.setAttribute( "cart", gameList );
 
         return "redirect:/";
     }
 
     // Добавление игры
     @GetMapping("/addGame")
-    public String loadAddGamePage()
+    public String loadAddGamePage(HttpSession session)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
 
         if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";

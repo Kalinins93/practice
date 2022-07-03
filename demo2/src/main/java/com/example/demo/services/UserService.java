@@ -73,4 +73,22 @@ public class UserService
         catch (Exception e){}
         return lib;
     }
+
+    public boolean isUserHaveGame(int idofuser, int idofgame)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                String.format("http://localhost:8081/haveGame?idofuser=%s&idofgame=%s",idofuser, idofgame),
+                    HttpMethod.POST, entity, Boolean.class);
+            return responseUser.getBody();
+        }
+        catch (Exception e){}
+
+        return false;
+    }
 }

@@ -34,9 +34,12 @@ public class IndexController
     @GetMapping("/")
     public String loadIndexPage(Model model, HttpSession session)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
 
-        if ( cartService.getCart() == null  )
+        if ( usr != null && adminService.isBanned( usr.getId() )  )
+            return "redirect:/ban";
+
+        if ( usr!= null && cartService.getCart() == null  )
             cartService.emptyCart();
 
         if( usr != null ) System.out.println(usr.toString());
@@ -45,9 +48,9 @@ public class IndexController
     }
 
     @GetMapping("/search")
-    public String search(Model model, @RequestParam String keyword)
+    public String search(HttpSession session, Model model, @RequestParam String keyword)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
         if ( usr != null && adminService.isBanned( usr.getId() )  )
             return "redirect:/ban";
 
@@ -74,9 +77,9 @@ public class IndexController
     }
 
     @GetMapping("/ban")
-    public String ban()
+    public String ban(HttpSession session)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
         if( usr == null )
             return "redirect:/";
 

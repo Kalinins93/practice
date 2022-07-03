@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Game;
+import com.example.demo.models.User;
 import com.example.demo.services.CartService;
 import com.example.demo.services.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CartController
@@ -22,12 +26,12 @@ public class CartController
 
     // Страница корзины
     @GetMapping("/cart")
-    public String loadCartPage(Model model)
+    public String loadCartPage(Model model, HttpSession session)
     {
-        if( indexService.getCurrentUser() == null )
+        if( session.getAttribute("currentUser") == null )
             return "redirect:/";
 
-        model.addAttribute("thisUserCart", cartService.getCart() );
+        model.addAttribute("thisUserCart", (List<Game>) session.getAttribute("cart") );
         return "cartPage";
     }
 
@@ -41,11 +45,12 @@ public class CartController
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(gameHeaders);
             restTemplate.exchange("http://localhost:8081/addGamesToLibrary",
-                    HttpMethod.GET, entity, Boolean.class );
+                    HttpMethod.POST, entity, Boolean.class,
+                        (List<Game>) session.getAttribute("cart"), ((User)session.getAttribute("currentUser")).getId() );
         }
         catch (Exception e){}
 
-        //session.setAttribute("cart", new ArrayList<Game>() );
+        session.setAttribute("cart", new ArrayList<>() );
         model.addAttribute("thisUserCart", session.getAttribute("cart") );
 
         return "redirect:/";

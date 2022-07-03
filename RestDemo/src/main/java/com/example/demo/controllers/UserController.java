@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.database.GameOfUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,9 @@ public class UserController
 
     @Autowired
     UsersRepo usersRepo;
+
+    @Autowired
+    GameOfUserRepo gameOfUserRepo;
 
     @PostMapping("/getUser")
     public User getUser(@RequestParam(value = "id", required = true) int id)
@@ -65,5 +69,11 @@ public class UserController
         }
         usersRepo.save( usr );
         return true;
+    }
+
+    @PostMapping("/haveGame")
+    public boolean hasGame(@RequestParam int idofuser,@RequestParam int idofgame)
+    {
+        return gameOfUserRepo.contains(idofuser, idofgame);
     }
 }

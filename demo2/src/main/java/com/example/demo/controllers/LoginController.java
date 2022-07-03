@@ -53,7 +53,7 @@ public class LoginController
     @GetMapping("/logout")
     public String logout(HttpSession session)
     {
-        indexService.logout();
+        session.setAttribute("currentUser", null);
         return "redirect:/";
     }
 
@@ -65,7 +65,7 @@ public class LoginController
 
     @PostMapping("/reg")
     public String afterRegisatration(@RequestParam String name, @RequestParam String email,
-                                     @RequestParam String hashcode ) throws SQLException
+                                     @RequestParam String hashcode )
     {
         User usr = userService.getUserByItsEmail(email);
 
@@ -79,8 +79,8 @@ public class LoginController
         try
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
-            restTemplateReg.exchange("http://localhost:8081/registerUser",
-                    HttpMethod.POST, entity, Boolean.class, name, email, hashcode);
+            restTemplateReg.exchange(String.format("http://localhost:8081/registerUser?name=%s&email=%s&hashcode=%s",name, email, hashcode),
+                    HttpMethod.POST, entity, Boolean.class);
         }
         catch (Exception e){}
 

@@ -35,7 +35,7 @@ public class UserController
     @GetMapping("/editUser")
     public String loadEdituserPage(@RequestParam int id, HttpSession session, Model model)
     {
-        User currentUser = indexService.getCurrentUser();
+        User currentUser = (User) session.getAttribute("currentUser");
         User pageUser = userService.getUserById(id);
 
         if( currentUser == null || currentUser.getId() != id)
@@ -51,7 +51,7 @@ public class UserController
                                  @RequestParam String email,@RequestParam String hashcode,
                                  @RequestParam MultipartFile icon, HttpSession session)
     {
-        User user = indexService.getCurrentUser();
+        User user = (User) session.getAttribute("currentUser");
 
         if( userService.getUserByItsEmail(email) != null &&
             userService.getUserByItsEmail(email).getId() != user.getId())

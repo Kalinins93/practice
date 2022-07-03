@@ -24,33 +24,18 @@ public class CartController
     @Autowired
     GameOfUserRepo gameOfUserRepo;
 
-    @PostMapping("/getCart")
-    public List<Game> getCart(HttpSession session)
-    {
-        return (List<Game>) session.getAttribute("cart");
-    }
-
     @PostMapping("/addGamesToLibrary")
-    public boolean addGamesToLibrary(HttpSession session ) throws SQLException
+    public boolean addGamesToLibrary(List<Game> cart, int currentUser) throws SQLException
     {
-        List<Game> gamesToBuy = (List<Game>) session.getAttribute("cart");
-        int curretnUserId = ( (User) session.getAttribute("currentUser") ).getId();
         Connection con = dataSource.getConnection();
         Statement stm = con.createStatement();
 
-        for (Game game: gamesToBuy )
+        for (Game game: cart )
         {
-            if( gameOfUserRepo.contains( curretnUserId ,game.getId()) ) continue;
-            stm.executeUpdate("insert into libraries (idofuser, idofgame) values ("+ curretnUserId + ", " + game.getId() + " )");
+            if( gameOfUserRepo.contains( currentUser ,game.getId()) ) continue;
+            stm.executeUpdate("insert into libraries (idofuser, idofgame) values ("+ currentUser + ", " + game.getId() + " )");
         }
         con.close();
-        return true;
-    }
-
-    @PostMapping("/emptyCart")
-    public boolean emptyCart(HttpSession session)
-    {
-        session.setAttribute("cart", new ArrayList<>() );
         return true;
     }
 }

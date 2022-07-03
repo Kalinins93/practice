@@ -58,43 +58,60 @@ public class AdminController
 
 
     @PostMapping("/unbanUser")
-    public String unbanUser(@RequestParam int id) throws SQLException
+    public boolean unbanUser(@RequestParam int id) throws SQLException
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("delete from banned where idofuser=" + id);
-        connection.close();
-        return "redirect:/allUsers";
+        try
+        {
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("delete from banned where idofuser=" + id);
+            connection.close();
+        }
+        catch (SQLException e) {}
+        return true;
     }
 
     @PostMapping("/banUser")
-    public String banUser(@RequestParam int id) throws SQLException
+    public boolean banUser(@RequestParam int id) throws SQLException
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("insert into banned (idofuser) values (" + id + ")");
-        connection.close();
-        return "redirect:/allUsers";
+        try
+        {
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("insert into banned (idofuser) values (" + id + ")");
+            connection.close();
+        }
+        catch (SQLException e) {}
+        return true;
     }
 
     @PostMapping("/grantAdmin")
-    public String grantAdmin(@RequestParam int id) throws SQLException
+    public boolean grantAdmin(@RequestParam int id) throws SQLException
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("insert into roles (idofuser, role) values (" + id + ", 'admin')");
-        connection.close();
-        return "redirect:/allUsers";
+        try
+        {
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("insert into roles (idofuser, role) values (" + id + ", 'admin')");
+            connection.close();
+        }
+        catch (SQLException e) {}
+        return true;
     }
 
     @PostMapping("/revokeAdmin")
-    public String revokeAdmin(@RequestParam int id) throws SQLException
+    public boolean revokeAdmin(@RequestParam int id)
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("update roles set role = '' where idofuser =" + id);
-        connection.close();
-        return "redirect:/allUsers";
+        try
+        {
+            Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("update roles set role = '' where idofuser =" + id);
+            connection.close();
+        }
+        catch (SQLException e) {}
+
+        return true;
     }
 
 }

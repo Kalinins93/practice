@@ -21,7 +21,7 @@ public class AdminService
         {
             HttpEntity<UserRequest> entity = new HttpEntity<>(headers);
             ResponseEntity<? extends List> responseUser = restTemplate.exchange(
-                    "http://localhost:8081/getAllUsers",
+            "http://localhost:8081/getAllUsers",
                     HttpMethod.POST, entity, users.getClass());
             users = responseUser.getBody();
         }
@@ -57,7 +57,79 @@ public class AdminService
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
             ResponseEntity<Boolean> responseUser = restTemplate.exchange(
                     "http://localhost:8081/isAdmin?id="+id,
-                    HttpMethod.GET, entity, Boolean.class);
+                    HttpMethod.POST, entity, Boolean.class);
+            return responseUser.getBody();
+        }
+        catch (Exception e){}
+
+        return false;
+    }
+
+    public boolean unbanUser(int id)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                    "http://localhost:8081/unbanUser?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+            return responseUser.getBody();
+        }
+        catch (Exception e){}
+
+        return false;
+    }
+
+    public boolean banUser(int id)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                    "http://localhost:8081/banUser?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+            return responseUser.getBody();
+        }
+        catch (Exception e){}
+
+        return false;
+    }
+
+    public boolean revokeAdmin(int id)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                    "http://localhost:8081/revokeAdmin?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+            return responseUser.getBody();
+        }
+        catch (Exception e){}
+
+        return false;
+    }
+
+    public boolean grantAdmin(int id)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                    "http://localhost:8081/grantAdmin?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
             return responseUser.getBody();
         }
         catch (Exception e){}

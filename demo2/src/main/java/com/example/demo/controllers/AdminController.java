@@ -20,9 +20,9 @@ public class AdminController
     AdminService adminService;
 
     @GetMapping("/admin")
-    public String loadAdminPage()
+    public String loadAdminPage(HttpSession session)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
         if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
@@ -33,9 +33,9 @@ public class AdminController
     }
 
     @GetMapping("/allUsers")
-    public String loadAllUsersPage(Model model)
+    public String loadAllUsersPage(Model model, HttpSession session)
     {
-        User usr = indexService.getCurrentUser();
+        User usr = (User) session.getAttribute("currentUser");
         if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
@@ -46,6 +46,4 @@ public class AdminController
 
         return "allUsersPage";
     }
-
-
 }
