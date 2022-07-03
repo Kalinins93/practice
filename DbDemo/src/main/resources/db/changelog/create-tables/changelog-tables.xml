@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+    <preConditions>
+        <runningAs  username="vova"/>
+    </preConditions>
+
+    <changeSet  id="aa"  author="vova">
+        <createTable  tableName="users">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="name"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="email"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="hashcode"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="iconname"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="ab"  author="vova">
+        <createTable  tableName="games">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="title"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="description"  type="varchar(500)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="price"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="imagename"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="ac"  author="vova">
+        <createTable  tableName="roles">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="idofuser"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="role"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="ad"  author="vova">
+        <createTable  tableName="roles">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="idofuser"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="role"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="ae"  author="vova">
+        <createTable  tableName="banned">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="idofuser"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="af"  author="vova">
+        <createTable  tableName="screenshots">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="idofgame"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="screenshotname"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet  id="ag"  author="vova">
+        <createTable  tableName="libraries">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="idofuser"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="idofgame"  type="int">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
