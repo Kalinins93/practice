@@ -1,47 +1,49 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.User;
+import com.example.demo.services.IndexService;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpSession;
-import com.example.demo.models.Users;
 import org.springframework.ui.Model;
+import org.springframework.web.client.RestTemplate;
 import java.sql.SQLException;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.Statement;
 
 @Controller
 public class LoginController
 {
-    /*
     @Autowired
-    DataSource dataSource;
+    IndexService indexService;
 
     @Autowired
-    UsersRepo usersRepo;
+    UserService userService;
 
     // Страница со входом
     @GetMapping("/login")
     public String loadLoginPage(Model model)
     {
-        Users usr = new Users();
-        model.addAttribute("users", usr);
         return "login";
     }
 
     @PostMapping("/login")
-    public String loadAfterLogin(HttpSession session, @RequestParam String email, @RequestParam String hashcode, Model model)
+    public String loadAfterLogin(HttpSession session, @RequestParam String email,
+                                 @RequestParam String hashcode, Model model)
     {
-        if( usersRepo.getByEmail( email ) == null )
+        User usr = userService.getUserByItsEmail(email);
+        System.out.println(usr.toString());
+
+        if( usr.getHashcode() == null )
             return "redirect:/login";
 
-        if( ! usersRepo.getByEmail( email ).getHashcode().equals( hashcode ) )
+        if( !usr.getHashcode().equals( hashcode ) )
             return "redirect:/login";
 
-        session.setAttribute("currentUser", usersRepo.getByEmail( email ) );
+        indexService.setCurrentUser(usr);
         model.addAttribute("session", session );
 
         return "redirect:/";
@@ -51,7 +53,7 @@ public class LoginController
     @GetMapping("/logout")
     public String logout(HttpSession session)
     {
-        session.setAttribute("currentUser", null );
+        indexService.logout();
         return "redirect:/";
     }
 
@@ -62,22 +64,27 @@ public class LoginController
     }
 
     @PostMapping("/reg")
-    public String afterRegisatration(HttpSession session, @RequestParam String name,
-                                     @RequestParam String email,@RequestParam String hashcode ) throws SQLException
+    public String afterRegisatration(@RequestParam String name, @RequestParam String email,
+                                     @RequestParam String hashcode ) throws SQLException
     {
-        Connection con = dataSource.getConnection();
-        Statement stm = con.createStatement();
+        User usr = userService.getUserByItsEmail(email);
 
-        if( usersRepo.getByEmail(email) != null )
+        if( usr != null )
             return "redirect:/reg";
 
-        stm.executeUpdate( String.format("insert into users (name, email, hashcode, iconname) values ('%s','%s','%s', 'icon_placeholder.jpg')",
-                name, email, hashcode) );
-        con.close();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        RestTemplate restTemplateReg = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            restTemplateReg.exchange("http://localhost:8081/registerUser",
+                    HttpMethod.POST, entity, Boolean.class, name, email, hashcode);
+        }
+        catch (Exception e){}
 
         return "redirect:/login";
     }
-
-*/
 
 }

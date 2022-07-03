@@ -1,6 +1,8 @@
 package com.example.demo.database;
 
-import org.postgresql.ds.PGPoolingDataSource;
+import org.postgresql.ds.PGSimpleDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
@@ -10,24 +12,25 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
+import java.util.Map;
 
 @Configuration
 @EnableJdbcRepositories("com.example.demo.database")
 @EnableTransactionManagement
 public class SpringDAO extends AbstractJdbcConfiguration
 {
+    @Autowired
+    private Environment env;
+
     @Bean
-    public PGPoolingDataSource dataSource()
+    public PGSimpleDataSource dataSource()
     {
-        PGPoolingDataSource source = new PGPoolingDataSource();
-        source.setDataSourceName("A Data Source");
-        source.setServerNames(new String[] {"localhost"});
-        source.setDatabaseName("shop");
-        source.setUser("vova");
-        source.setPassword("123");
-        source.setMaxConnections(10);
-        source.setURL("jdbc:postgresql://localhost:5432/shop");
-        //;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        PGSimpleDataSource source = new PGSimpleDataSource();
+
+        source.setDatabaseName(env.getProperty("spring.datasource.dataBaseName"));
+        source.setUser( env.getProperty("spring.datasource.username") );
+        source.setPassword( env.getProperty("spring.datasource.password") );
+        source.setURL( env.getProperty("spring.datasource.url") );
 
         return source;
     }

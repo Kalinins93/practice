@@ -1,102 +1,49 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.User;
+import com.example.demo.services.AdminService;
+import com.example.demo.services.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-import com.example.demo.models.Users;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AdminController
 {
-    /*
     @Autowired
-    RolesRepo rolesRepo;
+    IndexService indexService;
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
-    UsersRepo usersRepo;
-
-    @Autowired
-    BannedRepo bannedRepo;
+    AdminService adminService;
 
     @GetMapping("/admin")
-    public String loadAdminPage(HttpSession session)
+    public String loadAdminPage()
     {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if( usr == null || ! rolesRepo.isAdmin( usr.getId() ) )
+        User usr = indexService.getCurrentUser();
+        if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
-        if ( bannedRepo.isBanned( usr.getId() ) )
+        if ( adminService.isBanned( usr.getId() ) )
             return "redirect:/ban";
 
         return "adminPage";
     }
 
     @GetMapping("/allUsers")
-    public String loadAllUsersPage(HttpSession session, Model model)
+    public String loadAllUsersPage(Model model)
     {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if( usr == null || ! rolesRepo.isAdmin( usr.getId() ) )
+        User usr = indexService.getCurrentUser();
+        if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
-        if ( bannedRepo.isBanned( usr.getId() ) )
+        if ( adminService.isBanned( usr.getId() ) )
             return "redirect:/ban";
 
-        model.addAttribute("allUsers", usersRepo.findAll());
+        model.addAttribute("allUsers", adminService.getAllUsers());
 
         return "allUsersPage";
     }
 
-    @GetMapping("/unbanUser")
-    public String unbanUser(@RequestParam int id) throws SQLException
-    {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("delete from banned where idofuser=" + id);
-        connection.close();
-        return "redirect:/allUsers";
-    }
-
-    @GetMapping("/banUser")
-    public String banUser(@RequestParam int id) throws SQLException
-    {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("insert into banned (idofuser) values (" + id + ")");
-        connection.close();
-        return "redirect:/allUsers";
-    }
-
-    @GetMapping("/grantAdmin")
-    public String grantAdmin(@RequestParam int id) throws SQLException
-    {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("insert into Roles (idofuser, role) values (" + id + ", 'admin')");
-        connection.close();
-        return "redirect:/allUsers";
-    }
-
-    @GetMapping("/revokeAdmin")
-    public String revokeAdmin(@RequestParam int id) throws SQLException
-    {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("update Roles set role = '' where idofuser =" + id);
-        connection.close();
-        return "redirect:/allUsers";
-    }
-
-
-     */
 
 }

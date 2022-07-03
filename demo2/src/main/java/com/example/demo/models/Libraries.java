@@ -5,7 +5,7 @@ import java.util.List;
 public class Libraries
 {
     private int idOfUser;
-    private List<Games> games;
+    private List<Game> games;
 
     public int getIdOfUser() {
         return idOfUser;
@@ -15,15 +15,15 @@ public class Libraries
         this.idOfUser = idOfUser;
     }
 
-    public List<Games> getGames() {
+    public List<Game> getGames() {
         return games;
     }
 
-    public void setGames(List<Games> games) {
+    public void setGames(List<Game> games) {
         this.games = games;
     }
 
-    public void addGame(Games game)
+    public void addGame(Game game)
     {
         games.add(game);
     }

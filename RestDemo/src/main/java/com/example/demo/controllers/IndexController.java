@@ -1,16 +1,12 @@
 package com.example.demo.controllers;
 
-import com.example.demo.database.BannedRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.database.GamesRepo;
 import com.example.demo.database.UsersRepo;
-import org.springframework.ui.Model;
 import com.example.demo.models.*;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,46 +18,35 @@ public class IndexController
     @Autowired
     GamesRepo gamesRepo;
 
-    @GetMapping("/getCurrentUser")
-    public Users getCurrentUser(HttpSession session)
+    @PostMapping("/getCurrentUser")
+    public User getCurrentUser(HttpSession session)
     {
-        return (Users) session.getAttribute("currentUser");
+        return (User) session.getAttribute("currentUser");
     }
 
-    @GetMapping("/getAllUser")
-    public List<Users> getAllUser()
+    @PostMapping("/setCurrentUser")
+    public boolean setCurrentUser(HttpSession session, @RequestParam User user)
     {
-        return (List<Users>) usersRepo.findAll();
+        if(user == null) return false;
+        session.setAttribute("currentUser", user);
+        return true;
     }
 
-    @GetMapping("/getAllGames")
-    public List<Games> getAllGames()
+    @PostMapping("/getAllUser")
+    public List<User> getAllUser()
     {
-        return (List<Games>) gamesRepo.findAll();
-    }
-/*
-    @GetMapping("/search")
-    public String search(Model model, HttpSession session, @RequestParam String keyword)
-    {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if ( usr != null && bannedRepo.isBanned( usr.getId() )  )
-            return "redirect:/ban";
-
-        if( keyword.isEmpty() )
-            return "redirect:/";
-
-        System.out.println(gamesRepo.findAllByKeyword(keyword));
-        model.addAttribute("games", gamesRepo.findAllByKeyword(keyword) );
-        return "index";
+        return (List<User>) usersRepo.findAll();
     }
 
-    @GetMapping("/ban")
-    public String ban(HttpSession session)
+    @PostMapping("/getAllGames")
+    public List<Game> getAllGames()
     {
-        if( session.getAttribute("currentUser") == null )
-            return "redirect:/";
-
-        return "banPage";
+        return (List<Game>) gamesRepo.findAll();
     }
-*/
+
+    @PostMapping("/getAllGamesByKeyword")
+    public List<Game> getAllGamesByKeyword(@RequestParam String keyword)
+    {
+        return gamesRepo.findAllByKeyword(keyword);
+    }
 }

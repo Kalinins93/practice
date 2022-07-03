@@ -1,27 +1,33 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.User;
+import com.example.demo.services.IndexService;
+import com.example.demo.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController
 {
-    /*
     @Autowired
-    GamesRepo gamesRepo;
+    IndexService indexService;
 
     @Autowired
-    UsersRepo usersRepo;
+    UserService userService;
 
     @GetMapping("/users")
     public String loadUserPage(Model model, @RequestParam int id)
     {
-        Users userThatIsCurrent = usersRepo.findById(id).get();
-
-        Libraries libra = new Libraries();
-        libra.setGames ( gamesRepo.getAllGamesOfUser( id ) );
-
-        model.addAttribute("thisUser", userThatIsCurrent);
-        model.addAttribute("thisLibraryOfThisUser", libra.getGames());
+        model.addAttribute("thisUser", userService.getUserById(id));
+        model.addAttribute("thisLibraryOfThisUser", userService.getUserLibrary(id));
 
         return "userPage";
     }
@@ -29,10 +35,10 @@ public class UserController
     @GetMapping("/editUser")
     public String loadEdituserPage(@RequestParam int id, HttpSession session, Model model)
     {
-        Users currentUser = (Users) session.getAttribute("currentUser");
-        Users pageUser = usersRepo.findById(id).get();
+        User currentUser = indexService.getCurrentUser();
+        User pageUser = userService.getUserById(id);
 
-        if( currentUser == null || pageUser.getId() != id)
+        if( currentUser == null || currentUser.getId() != id)
             return "redirect:/";
 
         model.addAttribute("oldUserdata", pageUser);
@@ -41,31 +47,28 @@ public class UserController
     }
 
     @PostMapping("/editUser")
-    public String changeUserData(@RequestParam int id, @RequestParam String name, @RequestParam String email,
-                                 @RequestParam String hashcode, @RequestParam MultipartFile icon, HttpSession session) throws IOException
+    public String changeUserData(@RequestParam int id, @RequestParam String name,
+                                 @RequestParam String email,@RequestParam String hashcode,
+                                 @RequestParam MultipartFile icon, HttpSession session)
     {
-        Users user = (Users) session.getAttribute("currentUser");
+        User user = indexService.getCurrentUser();
 
-        if( usersRepo.getByEmail(email) != null && usersRepo.getByEmail(email).getId() != user.getId())
-            return "redirect:/editUser?id="+id;
+        if( userService.getUserByItsEmail(email) != null &&
+            userService.getUserByItsEmail(email).getId() != user.getId())
+                return "redirect:/editUser?id="+id;
 
-        Users usr = new Users();
-        usr.setId(id);
-        usr.setName(name);
-        usr.setEmail(email);
-        usr.setHashcode(hashcode);
-
-        if( icon.isEmpty() )
-            usr.setIconname( usersRepo.findById(id).get().getIconname() );
-        else
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
         {
-            DemoApplication.CopyToFolderImage(icon, id + "_icon.jpg");
-            usr.setIconname(id + "_icon.jpg");
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            restTemplate.exchange(
+            "http://localhost:8081/updateUserInfo",
+                    HttpMethod.POST, entity, Boolean.class, id, name, email, hashcode);
         }
-        usersRepo.save( usr );
+        catch (Exception e){}
 
         return "redirect:/users?id="+id;
     }
-
-     */
 }
