@@ -43,7 +43,7 @@ public class LoginController
         if( !usr.getHashcode().equals( hashcode ) )
             return "redirect:/login";
 
-        indexService.setCurrentUser(usr);
+        session.setAttribute("currentUser", usr);
         model.addAttribute("session", session );
 
         return "redirect:/";

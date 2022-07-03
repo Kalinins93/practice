@@ -31,7 +31,7 @@ public class GameService
         return games;
     }
 
-    public Game getGameById( int gameId )
+    public Game getGameById( int id )
     {
         Game game = new Game();
         HttpHeaders headers = new HttpHeaders();
@@ -41,8 +41,8 @@ public class GameService
         try
         {
             ResponseEntity<Game> responseGames = restTemplate.exchange(
-            "http://localhost:8081/getGame",
-                    HttpMethod.POST, entity, Game.class, gameId  );
+            "http://localhost:8081/getGame?id="+id,
+                    HttpMethod.POST, entity, Game.class);
             game = responseGames.getBody();
         }
         catch (Exception e){

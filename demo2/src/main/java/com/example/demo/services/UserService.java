@@ -28,8 +28,8 @@ public class UserService
         {
             HttpEntity<UserRequest> entity = new HttpEntity<>(headers);
             ResponseEntity<User> responseUser = restTemplate.exchange(
-            "http://localhost:8081/getUserByEmail",
-                    HttpMethod.POST, entity, User.class,email);
+            "http://localhost:8081/getUserByEmail?email="+email,
+                    HttpMethod.POST, entity, User.class);
             usr = responseUser.getBody();
         }
         catch (Exception e){

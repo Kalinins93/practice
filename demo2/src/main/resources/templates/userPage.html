@@ -25,7 +25,7 @@
     <a th:if="${session.currentUser != null}" th:href="@{/logout}"> <div> Выйти </div> </a>
 
     <th:block th:if="${session.currentUser != null}">
-        <a th:if="${ @rolesRepo.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
+        <a th:if="${ @adminService.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
             <div> Страница админа </div>
         </a>
     </th:block>

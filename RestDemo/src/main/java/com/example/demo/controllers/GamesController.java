@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.database.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +28,9 @@ public class GamesController
     ScreenshotsRepo screenshotsRepo;
 
     @PostMapping("/getGame")
-    public Game getGame(@RequestParam int gameId)
+    public Game getGame(@RequestParam(value = "id", required = true) int id)
     {
-        return gamesRepo.getById(gameId);
+        return gamesRepo.getById(id);
     }
 
     @PostMapping("/getGameScreenshots")
@@ -52,7 +51,7 @@ public class GamesController
     @PostMapping("/addGame")
     public boolean afterAddGamePage(@RequestParam String title, @RequestParam String description,
                                    @RequestParam int price, @RequestParam MultipartFile poster,
-                                   @RequestParam List<MultipartFile> screenshots ) throws IOException, SQLException
+                                   @RequestParam List<MultipartFile> screenshots ) throws SQLException
     {
         Connection con = dataSource.getConnection();
         Statement stm = con.createStatement();
@@ -70,11 +69,11 @@ public class GamesController
         //Добавление скриншотов в бд
         for(MultipartFile file : screenshots)
         {
-            stm.executeUpdate(String.format("insert into Screenshots (idofgame, screenshotname) values (%d, '%s' )",
+            stm.executeUpdate(String.format("insert into screenshots (idofgame, screenshotname) values (%d, '%s' )",
                     thisGameId, "placeholder"));
             thisScreenshotId = screenshotsRepo.getMaxId();
             newScreenshotName = thisGameId + "_"+ title + "_" + thisScreenshotId + ".jpg";
-            stm.executeUpdate(String.format("update Screenshots set screenshotname = '%s' where id = %d",
+            stm.executeUpdate(String.format("update screenshots set screenshotname = '%s' where id = %d",
                     newScreenshotName, thisScreenshotId));
             //RestDemoApplication.CopyToFolderImage(file, newScreenshotName);
         }

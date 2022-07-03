@@ -23,7 +23,7 @@ public class CartService
             HttpEntity<GameRequest> entity = new HttpEntity<>(headers);
             ResponseEntity<? extends List> responseUser = restTemplate.exchange(
                     "http://localhost:8081/getCart",
-                    HttpMethod.GET, entity, cart.getClass());
+                    HttpMethod.POST, entity, cart.getClass());
             cart = responseUser.getBody();
         }
         catch (Exception e){}
@@ -40,7 +40,7 @@ public class CartService
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
             restTemplate.exchange("http://localhost:8081/emptyCart",
-                    HttpMethod.GET, entity, Boolean.class);
+                    HttpMethod.POST, entity, Boolean.class);
         }
         catch (Exception e){}
         return true;

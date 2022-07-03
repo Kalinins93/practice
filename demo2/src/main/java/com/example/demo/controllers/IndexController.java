@@ -35,9 +35,11 @@ public class IndexController
     public String loadIndexPage(Model model, HttpSession session)
     {
         User usr = indexService.getCurrentUser();
+
         if ( cartService.getCart() == null  )
             cartService.emptyCart();
 
+        if( usr != null ) System.out.println(usr.toString());
         model.addAttribute("games", gameService.getAllGames() );
         return "index";
     }

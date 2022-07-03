@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.database.GameOfUserRepo;
 import javax.servlet.http.HttpSession;
 import com.example.demo.models.Game;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 import javax.sql.DataSource;
@@ -30,7 +31,7 @@ public class CartController
     }
 
     @PostMapping("/addGamesToLibrary")
-    public boolean addGamesToLibrary(HttpSession session) throws SQLException
+    public boolean addGamesToLibrary(HttpSession session ) throws SQLException
     {
         List<Game> gamesToBuy = (List<Game>) session.getAttribute("cart");
         int curretnUserId = ( (User) session.getAttribute("currentUser") ).getId();
@@ -43,8 +44,6 @@ public class CartController
             stm.executeUpdate("insert into libraries (idofuser, idofgame) values ("+ curretnUserId + ", " + game.getId() + " )");
         }
         con.close();
-
-        session.setAttribute("cart", new ArrayList<Game>() );
         return true;
     }
 

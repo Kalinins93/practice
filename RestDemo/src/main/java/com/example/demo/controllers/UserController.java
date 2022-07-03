@@ -21,13 +21,13 @@ public class UserController
     UsersRepo usersRepo;
 
     @PostMapping("/getUser")
-    public User getUser(@RequestParam int id)
+    public User getUser(@RequestParam(value = "id", required = true) int id)
     {
         return usersRepo.findById(id).get();
     }
 
     @PostMapping("/getUserByEmail")
-    public User getUser(@RequestParam String email)
+    public User getUser(@RequestParam(value = "email", required = true) String email)
     {
         return usersRepo.getByEmail(email);
     }
