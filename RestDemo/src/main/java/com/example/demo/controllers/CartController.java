@@ -1,17 +1,13 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.database.GameOfUserRepo;
-import javax.servlet.http.HttpSession;
 import com.example.demo.models.Game;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.sql.Statement;
 import java.util.List;
 

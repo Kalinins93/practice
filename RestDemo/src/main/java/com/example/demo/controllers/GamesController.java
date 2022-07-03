@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpSession;
 import com.example.demo.models.Game;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
@@ -41,35 +39,41 @@ public class GamesController
 
     @PostMapping("/addGame")
     public boolean afterAddGamePage(@RequestParam String title, @RequestParam String description,
-                                   @RequestParam int price, @RequestParam MultipartFile poster,
-                                   @RequestParam List<MultipartFile> screenshots ) throws SQLException
+                                   @RequestParam int price
+                                    // @RequestParam MultipartFile poster
+                                   //@RequestParam List<MultipartFile> screenshots
+                                    )
     {
-        Connection con = dataSource.getConnection();
-        Statement stm = con.createStatement();
+        try {
+            Connection con = dataSource.getConnection();
+            Statement stm = con.createStatement();
 
-        //Добавление игры в бд
-        stm.executeUpdate(String.format("insert into games (title, description, price) values ('%s', '%s', %d)", title, description, price));
+            //Добавление игры в бд
+            stm.executeUpdate(String.format("insert into games (title, description, price) values ('%s', '%s', %d)", title, description, price));
+/*
+            int thisGameId = gamesRepo.getMaxId();
+            String posterName = gamesRepo.getImageNameById(thisGameId);
+            //RestDemoApplication.CopyToFolderImage(poster, posterName);
 
-        int thisGameId = gamesRepo.getMaxId();
-        String posterName = gamesRepo.getImageNameById( thisGameId );
-        //RestDemoApplication.CopyToFolderImage(poster, posterName);
+            int thisScreenshotId = 0;
+            String newScreenshotName = "";
 
-        int thisScreenshotId = 0;
-        String newScreenshotName = "";
+            //Добавление скриншотов в бд
+            for (MultipartFile file : screenshots) {
+                stm.executeUpdate(String.format("insert into screenshots (idofgame, screenshotname) values (%d, '%s' )",
+                        thisGameId, "placeholder"));
+                thisScreenshotId = screenshotsRepo.getMaxId();
+                newScreenshotName = thisGameId + "_" + title + "_" + thisScreenshotId + ".jpg";
+                stm.executeUpdate(String.format("update screenshots set screenshotname = '%s' where id = %d",
+                        newScreenshotName, thisScreenshotId));
+                //RestDemoApplication.CopyToFolderImage(file, newScreenshotName);
+            }
 
-        //Добавление скриншотов в бд
-        for(MultipartFile file : screenshots)
-        {
-            stm.executeUpdate(String.format("insert into screenshots (idofgame, screenshotname) values (%d, '%s' )",
-                    thisGameId, "placeholder"));
-            thisScreenshotId = screenshotsRepo.getMaxId();
-            newScreenshotName = thisGameId + "_"+ title + "_" + thisScreenshotId + ".jpg";
-            stm.executeUpdate(String.format("update screenshots set screenshotname = '%s' where id = %d",
-                    newScreenshotName, thisScreenshotId));
-            //RestDemoApplication.CopyToFolderImage(file, newScreenshotName);
+ */
+            con.close();
         }
+        catch (SQLException e){}
 
-        con.close();
         return true;
     }
 

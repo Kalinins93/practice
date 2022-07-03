@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Service("indexService")
 public class IndexService
 {
+    /*
     public User getCurrentUser()
     {
         User usr = new User();
@@ -28,21 +29,7 @@ public class IndexService
         return usr;
     }
 
-    public boolean setCurrentUser(User user)
-    {
-        if(user == null) return false;
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        RestTemplate restTemplate = new RestTemplate();
-        try
-        {
-            HttpEntity<UserRequest> entity = new HttpEntity<>(headers);
-            restTemplate.exchange("http://localhost:8081/getCurrentUser", HttpMethod.POST, entity, User.class, user);
-        }
-        catch (Exception e){}
-        return true;
-    }
+     */
 
     public void logout()
     {

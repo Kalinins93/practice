@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.database.RolesRepo;
 import com.example.demo.database.UsersRepo;
 import javax.sql.DataSource;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

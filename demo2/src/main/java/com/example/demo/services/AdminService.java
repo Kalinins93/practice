@@ -56,7 +56,7 @@ public class AdminService
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
             ResponseEntity<Boolean> responseUser = restTemplate.exchange(
-                    "http://localhost:8081/isAdmin?id="+id,
+            "http://localhost:8081/isAdmin?id="+id,
                     HttpMethod.POST, entity, Boolean.class);
             return responseUser.getBody();
         }

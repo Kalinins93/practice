@@ -48,8 +48,7 @@ public class UserController
 
     @PostMapping("/editUser")
     public String changeUserData(@RequestParam int id, @RequestParam String name,
-                                 @RequestParam String email,@RequestParam String hashcode,
-                                 @RequestParam MultipartFile icon, HttpSession session)
+                                 @RequestParam String email,@RequestParam String hashcode, HttpSession session)
     {
         User user = (User) session.getAttribute("currentUser");
 

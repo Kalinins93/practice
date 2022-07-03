@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.requestentitys.GameRequest;
 import com.example.demo.services.AdminService;
 import com.example.demo.services.CartService;
 import com.example.demo.services.GameService;
@@ -19,9 +18,6 @@ import java.util.List;
 @Controller
 public class IndexController
 {
-    @Autowired
-    IndexService indexService;
-
     @Autowired
     AdminService adminService;
 

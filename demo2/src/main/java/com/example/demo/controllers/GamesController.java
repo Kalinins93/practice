@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
-import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,9 +90,10 @@ public class GamesController
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
             restTemplate.exchange(
-                String.format("http://localhost:8081/addGame?title=%s&description=%s&price=%s&poset=%s&screenshots=%s",
-                    title, description, price, poster, screenshots),
+                String.format("http://localhost:8081/addGame?title=%s&description=%s&price=%s",
+                    title, description, price),
                         HttpMethod.POST, entity, Boolean.class );
+
         }
         catch (Exception e){}
 

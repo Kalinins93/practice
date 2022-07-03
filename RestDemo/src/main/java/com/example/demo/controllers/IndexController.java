@@ -6,7 +6,6 @@ import com.example.demo.database.GamesRepo;
 import com.example.demo.database.UsersRepo;
 import com.example.demo.models.*;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
