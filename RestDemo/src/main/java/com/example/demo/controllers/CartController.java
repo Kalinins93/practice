@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.database.GameOfUserRepo;
 import com.example.demo.models.Game;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 import javax.sql.DataSource;
@@ -22,7 +23,7 @@ public class CartController
     GameOfUserRepo gameOfUserRepo;
 
     @PostMapping("/addGamesToLibrary")
-    public boolean addGamesToLibrary(List<Integer> cart, int user)
+    public boolean addGamesToLibrary(@RequestParam int user, @RequestParam Integer ... cart)
     {
         try
         {

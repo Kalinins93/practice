@@ -50,7 +50,7 @@ public class GamesController
             Statement stm = con.createStatement();
 
             //Добавление игры в бд
-            stm.executeUpdate(String.format("insert into games (title, description, price) values ('%s', '%s', %d)",
+            stm.executeUpdate(String.format("insert into games (title, description, price, imagename) values ('%s', '%s', %d, '')",
                 title, description, price));
 /*
             int thisGameId = gamesRepo.getMaxId();

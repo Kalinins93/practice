@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.database.GameOfUserRepo;
+import com.example.demo.models.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,8 @@ import com.example.demo.database.UsersRepo;
 import com.example.demo.models.Libraries;
 import javax.servlet.http.HttpSession;
 import com.example.demo.models.User;
+
+import java.util.List;
 
 @RestController
 public class UserController
@@ -37,11 +40,9 @@ public class UserController
     }
 
     @PostMapping("/getUserLibrary")
-    public Libraries getUserLibrary(@RequestParam int id)
+    public List<Game> getUserLibrary(@RequestParam int id)
     {
-        Libraries libra = new Libraries();
-        libra.setGames ( gamesRepo.getAllGamesOfUser( id ) );
-        return libra;
+        return gamesRepo.getAllGamesOfUser( id );
     }
 
     @PostMapping("/updateUserInfo")

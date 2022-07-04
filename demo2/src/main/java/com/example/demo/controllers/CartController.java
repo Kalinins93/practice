@@ -38,20 +38,22 @@ public class CartController
     @PostMapping("/cart")
     public String afterBying(HttpSession session, Model model)
     {
-        List<Integer> gameList = new ArrayList<>();
-        for (Game gm: (List<Game>) session.getAttribute("cart"))
-            gameList.add(gm.getId());
+        List<Game> games = (List<Game>) session.getAttribute("cart");
+        String list = "";
+        for(int i = 0; i < games.size();i++)
+        {
+            l+= games.get(i).getId();
+            if( i + 1 != games.size() ) l+=",";
+        }
 
-        System.out.println( gameList );
         HttpHeaders gameHeaders = new HttpHeaders();
         gameHeaders.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
         try
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(gameHeaders);
-            restTemplate.exchange(String.format("http://localhost:8081/addGamesToLibrary?cart=%s&user=%d",
-                gameList.toString(), ((User)session.getAttribute("currentUser")).getId() ),
-                    HttpMethod.POST, entity, Boolean.class);
+            restTemplate.exchange("http://localhost:8081/addGamesToLibrary?cart={cart}&user={user}",
+                HttpMethod.POST, entity, Boolean.class, list, ((User) session.getAttribute("currentUser")).getId() );
         }
         catch (Exception e){}
 
