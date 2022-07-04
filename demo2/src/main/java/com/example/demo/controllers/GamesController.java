@@ -24,12 +24,6 @@ import java.util.List;
 public class GamesController
 {
     @Autowired
-    IndexService indexService;
-
-    @Autowired
-    CartService cartService;
-
-    @Autowired
     GameService gameService;
 
     @Autowired

@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.User;
-import com.example.demo.services.IndexService;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -16,9 +15,6 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class LoginController
 {
-    @Autowired
-    IndexService indexService;
-
     @Autowired
     UserService userService;
 
@@ -64,8 +60,7 @@ public class LoginController
     {
         User usr = userService.getUserByItsEmail(email);
 
-        if( usr != null )
-            return "redirect:/reg";
+        if( usr != null ) return "redirect:/reg";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

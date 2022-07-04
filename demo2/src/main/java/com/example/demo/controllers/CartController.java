@@ -42,8 +42,8 @@ public class CartController
         String list = "";
         for(int i = 0; i < games.size();i++)
         {
-            l+= games.get(i).getId();
-            if( i + 1 != games.size() ) l+=",";
+            list+= games.get(i).getId();
+            if( i + 1 != games.size() ) list+=",";
         }
 
         HttpHeaders gameHeaders = new HttpHeaders();
