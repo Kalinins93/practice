@@ -1,16 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.database.BannedRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.database.GamesRepo;
 import com.example.demo.database.UsersRepo;
-import org.springframework.ui.Model;
 import com.example.demo.models.*;
 import org.springframework.web.bind.annotation.RestController;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,46 +17,21 @@ public class IndexController
     @Autowired
     GamesRepo gamesRepo;
 
-    @GetMapping("/getCurrentUser")
-    public Users getCurrentUser(HttpSession session)
+    @PostMapping("/getAllUser")
+    public List<User> getAllUser()
     {
-        return (Users) session.getAttribute("currentUser");
+        return (List<User>) usersRepo.findAll();
     }
 
-    @GetMapping("/getAllUser")
-    public List<Users> getAllUser()
+    @PostMapping("/getAllGames")
+    public List<Game> getAllGames()
     {
-        return (List<Users>) usersRepo.findAll();
+        return (List<Game>) gamesRepo.findAll();
     }
 
-    @GetMapping("/getAllGames")
-    public List<Games> getAllGames()
+    @PostMapping("/getAllGamesByKeyword")
+    public List<Game> getAllGamesByKeyword(@RequestParam String keyword)
     {
-        return (List<Games>) gamesRepo.findAll();
+        return gamesRepo.findAllByKeyword(keyword);
     }
-/*
-    @GetMapping("/search")
-    public String search(Model model, HttpSession session, @RequestParam String keyword)
-    {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if ( usr != null && bannedRepo.isBanned( usr.getId() )  )
-            return "redirect:/ban";
-
-        if( keyword.isEmpty() )
-            return "redirect:/";
-
-        System.out.println(gamesRepo.findAllByKeyword(keyword));
-        model.addAttribute("games", gamesRepo.findAllByKeyword(keyword) );
-        return "index";
-    }
-
-    @GetMapping("/ban")
-    public String ban(HttpSession session)
-    {
-        if( session.getAttribute("currentUser") == null )
-            return "redirect:/";
-
-        return "banPage";
-    }
-*/
 }

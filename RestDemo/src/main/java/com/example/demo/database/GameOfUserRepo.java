@@ -10,10 +10,10 @@ import java.util.List;
 @Repository("gameOfUserRepo")
 public interface GameOfUserRepo extends CrudRepository<GameOfUser,Integer>
 {
-    @Query("select * from Libraries where id = :idOfUser")
+    @Query("select * from libraries where id = :idOfUser")
     List<GameOfUser> getAllByUserId( @Param("idOfUser") int idOfUser );
 
-    @Query("select exists( select * from Libraries where (idofuser = :idOfUser AND idofgame = :idOfGame) )")
+    @Query("select exists( select * from libraries where (idofuser = :idOfUser AND idofgame = :idOfGame) )")
     boolean contains( @Param("idOfUser") int idOfUser, @Param("idOfGame") int idOfGame );
 
 }

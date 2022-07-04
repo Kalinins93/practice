@@ -20,36 +20,51 @@
             <td> Имя </td>
             <td> Почта </td>
             <td> Статус </td>
-            <td>  </td>
+            <!-- <td>  </td> -->
             <td> Роль </td>
-            <td> </td>
+            <!-- <td>  </td> -->
         </tr>
         <tr th:each=" user : ${allUsers}" >
             <td > <img th:src="@{'/images/' + ${user.iconname}}" alt="" class="userIcon"> </td>
             <td> <a th:href="@{/users?id={userId} (userId=${ user.id })}" th:text="${user.name}"> </a> </td>
             <td th:text="${user.email}"></td>
 
-            <td th:if="${ @bannedRepo.isBanned( user.id ) }" > Забанен </td>
-            <td th:if="${ ! @bannedRepo.isBanned( user.id ) }" > Не забанен </td>
+            <td th:if="${ @adminService.isBanned( user.id ) }" > Забанен </td>
+            <td th:if="${ ! @adminService.isBanned( user.id ) }" > Не забанен </td>
 
-            <td th:if="${ @bannedRepo.isBanned( user.id ) }" >
-                <a th:href="@{ /unbanUser?id={userid} (userid=${ user.id }) }"> [ Разбанить ] </a>
+            <td th:if="${ @adminService.isBanned( user.id ) }" >
+                <form th:action="@{/unbanUser}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="submit" value="[ Разбанить ]">
+                </form>
+                <!-- <a th:href="@{ @adminService.unbanUser?id={userid} (userid=${ user.id }) }"> [ Разбанить ] </a> -->
             </td>
 
-            <td th:if="${ ! @bannedRepo.isBanned( user.id ) }" >
-                <a th:href="@{ /banUser?id={userid} (userid=${ user.id }) }"> [ Забанить ] </a>
+            <td th:if="${ ! @adminService.isBanned( user.id ) }" >
+                <form th:action="@{/banUser}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="submit" value="[ Забанить ]">
+                </form>
+                <!-- <a th:href="@{ /banUser?id={userid} (userid=${ user.id }) }"> [ Забанить ] </a> -->
             </td>
 
-            <td th:if="${ @rolesRepo.isAdmin( user.id ) } " > Админ </td>
-            <td th:if="${ ! @rolesRepo.isAdmin( user.id ) } " > Не админ </td>
+            <td th:if="${ @adminService.isAdmin( user.id ) } " > Админ </td>
+            <td th:if="${ ! @adminService.isAdmin( user.id ) } " > Не админ </td>
 
-            <td th:if="${ @rolesRepo.isAdmin( user.id ) } " >
-                <a th:href="@{ /revokeAdmin?id={userid} (userid=${ user.id }) }"> [ Отозвать роль админа ] </a>
+            <td th:if="${ @adminService.isAdmin( user.id ) } " >
+                <form th:action="@{/revokeAdmin}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="submit" value="[ Отозвать роль админа ]">
+                </form>
+                <!-- <a th:href="@{ /revokeAdmin?id={userid} (userid=${ user.id }) }"> [ Отозвать роль админа ] </a> -->
             </td>
-            <td th:if="${ ! @rolesRepo.isAdmin( user.id ) } " >
-                <a th:href="@{ /grantAdmin?id={userid} (userid=${ user.id }) }"> [ Назначить админом ]</a>
+            <td th:if="${ ! @adminService.isAdmin( user.id ) } " >
+                <form th:action="@{/grantAdmin}" method="post">
+                    <input type="hidden" name="id" th:value="${user.id}">
+                    <input type="submit" value="[ Назначить админом ]">
+                </form>
+                <!--<a th:href="@{ /grantAdmin?id={userid} (userid=${ user.id }) }"> [ Назначить админом ]</a>-->
             </td>
-
 
         </tr>
     </table>

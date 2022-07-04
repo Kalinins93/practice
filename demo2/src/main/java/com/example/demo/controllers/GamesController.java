@@ -1,73 +1,61 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Game;
+import com.example.demo.models.User;
+import com.example.demo.services.AdminService;
+import com.example.demo.services.CartService;
+import com.example.demo.services.GameService;
+import com.example.demo.services.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Controller;
-import com.example.demo.DemoApplication;
-import javax.servlet.http.HttpSession;
-import com.example.demo.models.Games;
-import com.example.demo.models.Users;
 import org.springframework.ui.Model;
-import java.sql.SQLException;
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.sql.Connection;
+
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.sql.Statement;
 import java.util.List;
 
 @Controller
 public class GamesController
 {
-    /*
     @Autowired
-    DataSource dataSource;
+    GameService gameService;
 
     @Autowired
-    GamesRepo gamesRepo;
-
-    @Autowired
-    BannedRepo bannedRepo;
-
-    @Autowired
-    GameOfUserRepo gameOfUserRepo;
-
-    @Autowired
-    ScreenshotsRepo screenshotsRepo;
-
-    @Autowired
-    RolesRepo rolesRepo;
+    AdminService adminService;
 
     // Страница для игры
     @GetMapping("/games")
-    public String loadGamePage(Model model, HttpSession session, @RequestParam Integer gameId)
+    public String loadGamePage(Model model, @RequestParam Integer gameId, HttpSession session)
     {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if ( usr != null && bannedRepo.isBanned( usr.getId() )  )
+        User usr = (User) session.getAttribute("currentUser");
+        if ( usr != null && adminService.isBanned( usr.getId() )  )
             return "redirect:/ban";
-        Games game = gamesRepo.getById(gameId);
 
-        if( usr != null )
-        System.out.println( gameOfUserRepo.contains( usr.getId() ,game.getId()) );
+        Game game = gameService.getGameById(gameId);
 
         model.addAttribute("thisGame", game);
-        model.addAttribute("thisGameScreenshots", screenshotsRepo.getNamesByGameId(game.getId()));
+        model.addAttribute("thisGameScreenshots", gameService.getScreenshotsNames(game.getId()));
         return "gamePage";
     }
 
     // Добавление в корзину
     @PostMapping("/games")
-    public String addToCart(HttpSession session, @RequestParam Integer gameId)
+    public String addToCart(@RequestParam Integer gameId, HttpSession session)
     {
-        if( session.getAttribute("cart") == null )
-            session.setAttribute("cart", new ArrayList<Games>() );
+        Game game = gameService.getGameById(gameId);
 
-        List<Games> gs = (List<Games>) session.getAttribute("cart");
-        gs.add( gamesRepo.getById(gameId) );
-        session.setAttribute( "cart", gs );
+        List<Game> gameList = (List<Game>) session.getAttribute("cart");
+
+        if( gameList == null ) gameList = new ArrayList<>();
+        if( !gameList.contains( game ) ) gameList.add( game );
+
+        session.setAttribute( "cart", gameList );
 
         return "redirect:/";
     }
@@ -76,9 +64,9 @@ public class GamesController
     @GetMapping("/addGame")
     public String loadAddGamePage(HttpSession session)
     {
-        Users usr = ((Users) session.getAttribute("currentUser"));
+        User usr = (User) session.getAttribute("currentUser");
 
-        if(  session.getAttribute("currentUser") == null || ! rolesRepo.getAllAdmins().contains( usr.getId() ) )
+        if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
         return "addGamePage";
@@ -86,37 +74,24 @@ public class GamesController
 
     @PostMapping("/addGame")
     public String afterAddGamePage(@RequestParam String title, @RequestParam String description, @RequestParam Integer price,
-                                   @RequestParam MultipartFile poster, @RequestParam List<MultipartFile> screenshots ) throws IOException, SQLException
+                                   @RequestParam MultipartFile poster, @RequestParam List<MultipartFile> screenshots )
     {
-        Connection con = dataSource.getConnection();
-        Statement stm = con.createStatement();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        //Добавление игры в бд
-        stm.executeUpdate(String.format("insert into Games (title, description, price) values ('%s', '%s', %d)", title, description, price));
-
-        int thisGameId = gamesRepo.getMaxId();
-        String posterName = gamesRepo.getImageNameById( thisGameId );
-        DemoApplication.CopyToFolderImage(poster, posterName);
-
-        int thisScreenshotId = 0;
-        String newScreenshotName = "";
-
-        //Добавление скриншотов в бд
-        for(MultipartFile file : screenshots)
+        RestTemplate restTemplate = new RestTemplate();
+        try
         {
-            stm.executeUpdate(String.format("insert into Screenshots (idofgame, screenshotname) values (%d, '%s' )",
-                    thisGameId, "placeholder"));
-            thisScreenshotId = screenshotsRepo.getMaxId();
-            newScreenshotName = thisGameId + "_"+ title + "_" + thisScreenshotId + ".jpg";
-            stm.executeUpdate(String.format("update Screenshots set screenshotname = '%s' where id = %d",
-                    newScreenshotName, thisScreenshotId));
-            DemoApplication.CopyToFolderImage(file, newScreenshotName);
-        }
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            restTemplate.exchange(
+                String.format("http://localhost:8081/addGame?title=%s&description=%s&price=%s",
+                    title, description, price),
+                        HttpMethod.POST, entity, Boolean.class );
 
-        con.close();
+        }
+        catch (Exception e){}
+
         return "redirect:/";
     }
-
-     */
 
 }

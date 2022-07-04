@@ -11,10 +11,10 @@ public interface ScreenshotsRepo extends CrudRepository<Screenshots, Integer>
     @Query("select screenshotname from Screenshots where idofgame = :gameId")
     public List<String> getNamesByGameId(@Param("gameId") int ifOfGame);
 
-    @Query("insert into Screenshots (idofgame, screenshotname) values (:gameId, :screenshotName)")
+    @Query("insert into screenshots (idofgame, screenshotname) values (:gameId, :screenshotName)")
     public int insert(@Param("gameId") int ifOfGame, @Param("screenshotName") String screenshotName);
 
-    @Query("select max(id) from Screenshots")
+    @Query("select max(id) from screenshots")
     public int getMaxId();
 
     @Query("update Screenshots set screenshotname = :newName where id = :thisImageId")

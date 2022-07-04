@@ -1,27 +1,46 @@
 package com.example.demo.services;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.example.demo.models.User;
+import com.example.demo.requestentitys.UserRequest;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-@Service
-@Qualifier("indexService")
+@Service("indexService")
 public class IndexService
 {
-/*
-    public List<Integer> getAllAdminsId()
+    /*
+    public User getCurrentUser()
     {
-        return context.getBean(RolesRepo.class).getAllAdmins();
+        User usr = new User();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<UserRequest> entity = new HttpEntity<>(headers);
+            ResponseEntity<User> responseUser = restTemplate.exchange(
+                    "http://localhost:8081/getCurrentUser", HttpMethod.POST, entity, User.class);
+            usr = responseUser.getBody();
+        }
+        catch (Exception e){
+            throw e;
+        }
+        return usr;
     }
 
-    public void unban(int id) throws SQLException
+     */
+
+    public void logout()
     {
-        DataSource dataSource = context.getBean( DataSource.class );
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("delete from banned where idofuser=" + id);
-        connection.close();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            restTemplate.exchange("http://localhost:8081/logout",HttpMethod.POST, entity, Boolean.class );
+        }
+        catch (Exception e){}
     }
-
-
- */
 }

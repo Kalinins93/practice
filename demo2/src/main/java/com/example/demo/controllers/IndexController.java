@@ -1,6 +1,10 @@
 package com.example.demo.controllers;
 
-import com.example.demo.requestentitys.UserRequest;
+import com.example.demo.services.AdminService;
+import com.example.demo.services.CartService;
+import com.example.demo.services.GameService;
+import com.example.demo.services.IndexService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -14,59 +18,68 @@ import java.util.List;
 @Controller
 public class IndexController
 {
+    @Autowired
+    AdminService adminService;
+
+    @Autowired
+    GameService gameService;
+
+    @Autowired
+    CartService cartService;
+
     @GetMapping("/")
     public String loadIndexPage(Model model, HttpSession session)
     {
-        Users usr = null;
-        List<Games> games = new ArrayList<>();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        User usr = (User) session.getAttribute("currentUser");
 
-        RestTemplate restTemplate = new RestTemplate();
-        try
-        {
-            HttpEntity<UserRequest> entity = new HttpEntity<>(headers);
-            ResponseEntity<Users> responseUser = restTemplate.exchange("http://localhost:8081/getCurrentUser", HttpMethod.GET, entity, Users.class);
-            usr = responseUser.getBody();
+        if ( usr != null && adminService.isBanned( usr.getId() )  )
+            return "redirect:/ban";
 
-            ResponseEntity<? extends List> responseGames = restTemplate.exchange("http://localhost:8081/getAllGames", HttpMethod.GET, entity, games.getClass() );
-            games = responseGames.getBody();
-        }
-        catch (Exception e){}
+        if ( usr!= null && cartService.getCart() == null  )
+            cartService.emptyCart();
 
-        if ( session.getAttribute("cart") == null  )
-            session.setAttribute("cart", new ArrayList<Games>());
-
-        model.addAttribute("games", games );
+        model.addAttribute("games", gameService.getAllGames() );
         return "index";
     }
-/*
+
     @GetMapping("/search")
-    public String search(Model model, HttpSession session, @RequestParam String keyword)
+    public String search(HttpSession session, Model model, @RequestParam String keyword)
     {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if ( usr != null && bannedRepo.isBanned( usr.getId() )  )
+        User usr = (User) session.getAttribute("currentUser");
+        if ( usr != null && adminService.isBanned( usr.getId() )  )
             return "redirect:/ban";
 
         if( keyword.isEmpty() )
             return "redirect:/";
 
-        System.out.println(gamesRepo.findAllByKeyword(keyword));
-        model.addAttribute("games", gamesRepo.findAllByKeyword(keyword) );
+        List<Game> searchGames = new ArrayList<>();
+
+        HttpHeaders gameHeaders = new HttpHeaders();
+        gameHeaders.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Game> entity = new HttpEntity<>(gameHeaders);
+            ResponseEntity<? extends List> responseGames = restTemplate.exchange(
+            "http://localhost:8081/getAllGamesByKeyword?keyword=" + keyword,
+                    HttpMethod.POST, entity, searchGames.getClass() );
+            searchGames = responseGames.getBody();
+        }
+        catch (Exception e){}
+
+        model.addAttribute("games", searchGames );
         return "index";
     }
 
     @GetMapping("/ban")
     public String ban(HttpSession session)
     {
-        if( session.getAttribute("currentUser") == null )
+        User usr = (User) session.getAttribute("currentUser");
+        if( usr == null )
             return "redirect:/";
 
         return "banPage";
     }
-
- */
-
 
 /*
     // Страница с ошибкой

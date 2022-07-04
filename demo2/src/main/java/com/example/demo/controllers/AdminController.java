@@ -1,102 +1,126 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.User;
+import com.example.demo.services.AdminService;
+import com.example.demo.services.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
-import com.example.demo.models.Users;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdminController
 {
-    /*
     @Autowired
-    RolesRepo rolesRepo;
+    IndexService indexService;
 
     @Autowired
-    DataSource dataSource;
-
-    @Autowired
-    UsersRepo usersRepo;
-
-    @Autowired
-    BannedRepo bannedRepo;
+    AdminService adminService;
 
     @GetMapping("/admin")
     public String loadAdminPage(HttpSession session)
     {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if( usr == null || ! rolesRepo.isAdmin( usr.getId() ) )
+        User usr = (User) session.getAttribute("currentUser");
+        if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
-        if ( bannedRepo.isBanned( usr.getId() ) )
+        if ( adminService.isBanned( usr.getId() ) )
             return "redirect:/ban";
 
         return "adminPage";
     }
 
     @GetMapping("/allUsers")
-    public String loadAllUsersPage(HttpSession session, Model model)
+    public String loadAllUsersPage(Model model, HttpSession session)
     {
-        Users usr = (Users) session.getAttribute("currentUser");
-        if( usr == null || ! rolesRepo.isAdmin( usr.getId() ) )
+        User usr = (User) session.getAttribute("currentUser");
+        if( usr == null || ! adminService.isAdmin( usr.getId() ) )
             return "redirect:/";
 
-        if ( bannedRepo.isBanned( usr.getId() ) )
+        if ( adminService.isBanned( usr.getId() ) )
             return "redirect:/ban";
 
-        model.addAttribute("allUsers", usersRepo.findAll());
+        model.addAttribute("allUsers", adminService.getAllUsers());
 
         return "allUsersPage";
     }
 
-    @GetMapping("/unbanUser")
-    public String unbanUser(@RequestParam int id) throws SQLException
+    @PostMapping("/unbanUser")
+    public String unbanUser(@RequestParam int id)
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("delete from banned where idofuser=" + id);
-        connection.close();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                "http://localhost:8081/unbanUser?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+        }
+        catch (Exception e){}
+
         return "redirect:/allUsers";
     }
 
-    @GetMapping("/banUser")
-    public String banUser(@RequestParam int id) throws SQLException
+    @PostMapping("/banUser")
+    public String banUser(@RequestParam int id)
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("insert into banned (idofuser) values (" + id + ")");
-        connection.close();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                "http://localhost:8081/banUser?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+        }
+        catch (Exception e){}
+
         return "redirect:/allUsers";
     }
 
-    @GetMapping("/grantAdmin")
-    public String grantAdmin(@RequestParam int id) throws SQLException
+    @PostMapping("/revokeAdmin")
+    public String revokeAdmin(@RequestParam int id)
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("insert into Roles (idofuser, role) values (" + id + ", 'admin')");
-        connection.close();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                "http://localhost:8081/revokeAdmin?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+        }
+        catch (Exception e){}
+
         return "redirect:/allUsers";
     }
 
-    @GetMapping("/revokeAdmin")
-    public String revokeAdmin(@RequestParam int id) throws SQLException
+    @PostMapping("/grantAdmin")
+    public String grantAdmin(@RequestParam int id)
     {
-        Connection connection = dataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("update Roles set role = '' where idofuser =" + id);
-        connection.close();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseUser = restTemplate.exchange(
+                "http://localhost:8081/grantAdmin?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+        }
+        catch (Exception e){}
+
         return "redirect:/allUsers";
     }
-
-
-     */
 
 }

@@ -11,8 +11,7 @@ public class GameOfUser
     private int idOfUser;
     private int idOfGame;
 
-    public GameOfUser() {
-    }
+    public GameOfUser() {}
 
     public int getId() {
         return id;

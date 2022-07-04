@@ -23,7 +23,7 @@
     <a th:if="${session.currentUser != null}" th:href="@{/logout}"> <div> Выйти </div> </a>
 
     <th:block th:if="${session.currentUser != null}">
-        <a th:if="${ @rolesRepo.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
+        <a th:if="${ @adminService.isAdmin( session.currentUser.getId() ) }" th:href="@{/admin}">
             <div> Страница админа </div>
         </a>
     </th:block>
@@ -48,7 +48,6 @@
 
             <div id="bottomOfCart">
                 <p th:text="${'В итоге: ' + #aggregates.sum(thisUserCart.![price])} + ' руб.'" id="totalPrice"> </p>
-                <p th:text="${ thisUserCart }"> </p>
 
                 <form action="#" th:action="@{/cart}" method="post">
                     <input type="submit" value="[Купить]" />

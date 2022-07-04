@@ -27,14 +27,13 @@
         <p th:if="${session.currentUser == null}" class="pleaseLoginP"> Чтобы приобрести игру, войдите в систему. </p>
 
         <th:block th:if="${session.currentUser != null}">
-            <p th:if="${ @gameOfUserRepo.contains(session.currentUser.id, thisGame.id ) }" class="pleaseLoginP"> Данная игра есть у вас в библиотеке. </p>
+            <p th:if="${ @userService.isUserHaveGame(session.currentUser.id, thisGame.id ) }" class="pleaseLoginP"> Данная игра есть у вас в библиотеке. </p>
 
-            <form th:if="${ ! @gameOfUserRepo.contains(session.currentUser.id, thisGame.id ) }" action="#" th:action="@{/games?gameId={idOfGame}(idOfGame=${thisGame.id})}" method="post">
+            <form th:if="${ ! @userService.isUserHaveGame(session.currentUser.id, thisGame.id ) }" action="#" th:action="@{/games?gameId={idOfGame}(idOfGame=${thisGame.id})}" method="post">
                 <input type="hidden" name="gameId" th:value="${thisGame.id}" />
                 <input type="submit" value="[Добавить в корзину]" />
             </form>
         </th:block>
-
     </div>
 
     <div id="gameDescriptionDiv">
