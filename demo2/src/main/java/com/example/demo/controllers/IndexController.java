@@ -38,7 +38,6 @@ public class IndexController
         if ( usr!= null && cartService.getCart() == null  )
             cartService.emptyCart();
 
-        if( usr != null ) System.out.println(usr.toString());
         model.addAttribute("games", gameService.getAllGames() );
         return "index";
     }

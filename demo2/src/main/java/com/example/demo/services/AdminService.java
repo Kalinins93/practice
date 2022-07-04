@@ -31,16 +31,15 @@ public class AdminService
 
     public boolean isBanned(Integer id)
     {
-        List<Integer> list = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
         try
         {
-            HttpEntity<Integer> entity = new HttpEntity<>(headers);
-            ResponseEntity<? extends List> responseBanned = restTemplate.exchange("http://localhost:8081/getAllBanned",
-                    HttpMethod.POST, entity, list.getClass());
-            return responseBanned.getBody().contains( id );
+            HttpEntity<Boolean> entity = new HttpEntity<>(headers);
+            ResponseEntity<Boolean> responseBanned = restTemplate.exchange("http://localhost:8081/isBanned?id="+id,
+                    HttpMethod.POST, entity, Boolean.class);
+            return responseBanned.getBody();
         }
         catch (Exception e){}
 

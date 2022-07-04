@@ -54,9 +54,14 @@ public class AdminController
         return (List<Banned>) bannedRepo.findAll();
     }
 
+    @PostMapping("/isBanned")
+    public boolean isBanned(@RequestParam Integer id)
+    {
+        return bannedRepo.isBanned(id);
+    }
 
     @PostMapping("/unbanUser")
-    public boolean unbanUser(@RequestParam int id) throws SQLException
+    public boolean unbanUser(@RequestParam int id)
     {
         try
         {
@@ -70,7 +75,7 @@ public class AdminController
     }
 
     @PostMapping("/banUser")
-    public boolean banUser(@RequestParam int id) throws SQLException
+    public boolean banUser(@RequestParam int id)
     {
         try
         {
@@ -84,7 +89,7 @@ public class AdminController
     }
 
     @PostMapping("/grantAdmin")
-    public boolean grantAdmin(@RequestParam int id) throws SQLException
+    public boolean grantAdmin(@RequestParam int id)
     {
         try
         {

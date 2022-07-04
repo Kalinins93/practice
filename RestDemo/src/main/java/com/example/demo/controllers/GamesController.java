@@ -39,17 +39,19 @@ public class GamesController
 
     @PostMapping("/addGame")
     public boolean afterAddGamePage(@RequestParam String title, @RequestParam String description,
-                                   @RequestParam int price
+                                   @RequestParam Integer price
                                     // @RequestParam MultipartFile poster
                                    //@RequestParam List<MultipartFile> screenshots
                                     )
     {
-        try {
+        try
+        {
             Connection con = dataSource.getConnection();
             Statement stm = con.createStatement();
 
             //Добавление игры в бд
-            stm.executeUpdate(String.format("insert into games (title, description, price) values ('%s', '%s', %d)", title, description, price));
+            stm.executeUpdate(String.format("insert into games (title, description, price) values ('%s', '%s', %d)",
+                title, description, price));
 /*
             int thisGameId = gamesRepo.getMaxId();
             String posterName = gamesRepo.getImageNameById(thisGameId);
@@ -68,7 +70,6 @@ public class GamesController
                         newScreenshotName, thisScreenshotId));
                 //RestDemoApplication.CopyToFolderImage(file, newScreenshotName);
             }
-
  */
             con.close();
         }

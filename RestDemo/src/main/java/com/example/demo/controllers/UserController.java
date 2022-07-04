@@ -45,21 +45,20 @@ public class UserController
     }
 
     @PostMapping("/updateUserInfo")
-    public boolean updateUserInfo(@RequestParam int id, @RequestParam String name,
+    public boolean updateUserInfo(@RequestParam int pageId, @RequestParam String name,
                                   @RequestParam String email, @RequestParam String hashcode,
-                                  @RequestParam MultipartFile icon, HttpSession session)
+                                  //@RequestParam MultipartFile icon,
+                                  @RequestParam int currentId)
     {
-        User user = (User) session.getAttribute("currentUser");
+        User user = usersRepo.findById(currentId).get();
 
-        if( usersRepo.getByEmail(email) != null && usersRepo.getByEmail(email).getId() != user.getId())
+        if( usersRepo.findById(pageId).get().getId() != user.getId() )
             return false;
 
-        User usr = new User();
-        usr.setId(id);
-        usr.setName(name);
-        usr.setEmail(email);
-        usr.setHashcode(hashcode);
-
+        user.setName(name);
+        user.setEmail(email);
+        user.setHashcode(hashcode);
+/*
         if( icon.isEmpty() )
             usr.setIconname( usersRepo.findById(id).get().getIconname() );
         else
@@ -67,7 +66,8 @@ public class UserController
             //RestDemoApplication.CopyToFolderImage(icon, id + "_icon.jpg");
             usr.setIconname(id + "_icon.jpg");
         }
-        usersRepo.save( usr );
+ */
+        usersRepo.save( user );
         return true;
     }
 

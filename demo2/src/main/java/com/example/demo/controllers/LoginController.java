@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.client.RestTemplate;
-import java.sql.SQLException;
 
 @Controller
 public class LoginController
@@ -35,12 +34,8 @@ public class LoginController
                                  @RequestParam String hashcode, Model model)
     {
         User usr = userService.getUserByItsEmail(email);
-        System.out.println(usr.toString());
 
-        if( usr.getHashcode() == null )
-            return "redirect:/login";
-
-        if( !usr.getHashcode().equals( hashcode ) )
+        if( usr == null || !usr.getHashcode().equals( hashcode ))
             return "redirect:/login";
 
         session.setAttribute("currentUser", usr);
@@ -79,8 +74,8 @@ public class LoginController
         try
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
-            restTemplateReg.exchange(String.format("http://localhost:8081/registerUser?name=%s&email=%s&hashcode=%s",name, email, hashcode),
-                    HttpMethod.POST, entity, Boolean.class);
+            restTemplateReg.exchange(String.format("http://localhost:8081/registerUser?name=%s&email=%s&hashcode=%s",
+                name, email, hashcode), HttpMethod.POST, entity, Boolean.class);
         }
         catch (Exception e){}
 

@@ -48,7 +48,8 @@ public class UserController
 
     @PostMapping("/editUser")
     public String changeUserData(@RequestParam int id, @RequestParam String name,
-                                 @RequestParam String email,@RequestParam String hashcode, HttpSession session)
+                                 @RequestParam String email,@RequestParam String hashcode,
+                                 HttpSession session)
     {
         User user = (User) session.getAttribute("currentUser");
 
@@ -62,9 +63,9 @@ public class UserController
         try
         {
             HttpEntity<Boolean> entity = new HttpEntity<>(headers);
-            restTemplate.exchange(
-            "http://localhost:8081/updateUserInfo",
-                    HttpMethod.POST, entity, Boolean.class, id, name, email, hashcode);
+            restTemplate.exchange(String.format(
+                "http://localhost:8081/updateUserInfo?pageId=%d&name=%s&email=%s&hashcode=%s&currentId=%d", id, name, email, hashcode, user.getId()),
+                    HttpMethod.POST, entity, Boolean.class);
         }
         catch (Exception e){}
 
