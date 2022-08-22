@@ -48,19 +48,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet  id="ac"  author="vova">
-        <createTable  tableName="roles">
-            <column  name="id"  type="int"  autoIncrement="true">
-                <constraints  primaryKey="true"  nullable="false"/>
-            </column>
-            <column  name="idofuser"  type="int">
-                <constraints  nullable="false"/>
-            </column>
-            <column  name="role"  type="varchar(50)">
-                <constraints  nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
 
     <changeSet  id="ad"  author="vova">
         <createTable  tableName="roles">

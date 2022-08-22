@@ -1,0 +1,10 @@
+spring.liquibase.enabled: true
+spring.liquibase.change-log: db/changelog/db.changelog-master.yaml
+spring.liquibase.contexts: dev
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.hibernate.show_sql: true
+changeLogFile: src/main/resources/db/changelog/db.changelog-master.yaml
+spring.datasource:
+     url: jdbc:postgresql://postgresql:5432/sampledb
+     username: postgres
+     password: postgres

@@ -12,6 +12,7 @@
 	<artifactId>Demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Demo</name>
+	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -53,6 +54,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
 	</build>
 

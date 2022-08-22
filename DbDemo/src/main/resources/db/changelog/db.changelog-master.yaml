@@ -1,5 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/create-tables/changelog-tables.xml
+      file: src/main/resources/db/changelog/create-tables/changelog-tables.xml
   - include:
-      file: db/changelog/create-insert/changelog-insert.sql
+      file: src/main/resources/db/changelog/create-insert/changelog-insert.sql

@@ -1,26 +1,96 @@
-2022-07-04 08:41:27.478  INFO 10032 --- [main] com.example.demo.RestDemoApplication     : Starting RestDemoApplication using Java 16.0.2 on LAPTOP-F85GUU8M with PID 10032 (C:\Users\user\OneDrive\Документы\GitHub\practice\RestDemo\target\classes started by user in C:\Users\user\OneDrive\Документы\GitHub\practice\RestDemo)
-2022-07-04 08:41:27.489  INFO 10032 --- [main] com.example.demo.RestDemoApplication     : No active profile set, falling back to 1 default profile: "default"
-2022-07-04 08:41:28.994  INFO 10032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2022-07-04 08:41:29.174  INFO 10032 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 161 ms. Found 6 JDBC repository interfaces.
-2022-07-04 08:41:31.594  INFO 10032 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
-2022-07-04 08:41:31.623  INFO 10032 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2022-07-04 08:41:31.623  INFO 10032 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2022-07-04 08:41:31.942  INFO 10032 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2022-07-04 08:41:31.952  INFO 10032 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4258 ms
-2022-07-04 08:41:32.119 DEBUG 10032 --- [main] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'logFilter' configured for use
-2022-07-04 08:41:34.465  INFO 10032 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
-2022-07-04 08:41:34.489  INFO 10032 --- [main] com.example.demo.RestDemoApplication     : Started RestDemoApplication in 8.336 seconds (JVM running for 9.752)
-2022-07-04 08:41:59.860  INFO 10032 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-07-04 08:41:59.860  INFO 10032 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2022-07-04 08:41:59.866  INFO 10032 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2022-07-04 08:41:59.885 DEBUG 10032 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isBanned?id=1]
-2022-07-04 08:42:00.190 DEBUG 10032 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isBanned?id=1]
-2022-07-04 08:42:00.195 DEBUG 10032 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGame?id=3]
-2022-07-04 08:42:00.425 DEBUG 10032 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGame?id=3]
-2022-07-04 08:42:00.430 DEBUG 10032 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGameScreenshots]
-2022-07-04 08:42:00.435  WARN 10032 --- [http-nio-8081-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'gameId' for method parameter type int is not present]
-2022-07-04 08:42:00.435 DEBUG 10032 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGameScreenshots]
-2022-07-04 08:42:00.480 DEBUG 10032 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /haveGame?idofuser=1&idofgame=3]
-2022-07-04 08:42:00.610 DEBUG 10032 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /haveGame?idofuser=1&idofgame=3]
-2022-07-04 08:42:00.620 DEBUG 10032 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /haveGame?idofuser=1&idofgame=3]
-2022-07-04 08:42:00.735 DEBUG 10032 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /haveGame?idofuser=1&idofgame=3]
+2022-07-12 10:21:06.211  INFO 5568 --- [main] com.example.demo.RestDemoApplication     : Starting RestDemoApplication using Java 17.0.1 on NB36-169 with PID 5568 (C:\Users\ilkalinin\Documents\Обучение\MSA\practice\RestDemo\target\classes started by ilkalinin in C:\Users\ilkalinin\Documents\Обучение\MSA\practice\RestDemo)
+2022-07-12 10:21:06.219  INFO 5568 --- [main] com.example.demo.RestDemoApplication     : No active profile set, falling back to 1 default profile: "default"
+2022-07-12 10:21:06.665  INFO 5568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-07-12 10:21:06.721  INFO 5568 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50 ms. Found 6 JDBC repository interfaces.
+2022-07-12 10:21:07.373  INFO 5568 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2022-07-12 10:21:07.383  INFO 5568 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-07-12 10:21:07.384  INFO 5568 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-07-12 10:21:07.474  INFO 5568 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-07-12 10:21:07.475  INFO 5568 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1199 ms
+2022-07-12 10:21:07.522 DEBUG 5568 --- [main] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'logFilter' configured for use
+2022-07-12 10:21:08.148  INFO 5568 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2022-07-12 10:21:08.155  INFO 5568 --- [main] com.example.demo.RestDemoApplication     : Started RestDemoApplication in 2.394 seconds (JVM running for 2.729)
+2022-07-12 10:23:55.999  INFO 5568 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-07-12 10:23:55.999  INFO 5568 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-07-12 10:23:56.000  INFO 5568 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-07-12 10:23:56.014 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [GET /getCurrentUser]
+2022-07-12 10:23:56.033 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : GET /getCurrentUser]
+2022-07-12 10:24:28.108 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [GET /]
+2022-07-12 10:24:28.109 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : GET /]
+2022-07-12 10:24:40.463 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /]
+2022-07-12 10:24:40.464 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /]
+2022-07-12 10:24:44.814 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getCurrentUser]
+2022-07-12 10:24:44.817 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getCurrentUser]
+2022-07-12 10:24:55.339 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllGames]
+2022-07-12 10:24:55.473 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllGames]
+2022-07-12 10:25:08.302 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllUser]
+2022-07-12 10:25:08.337 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllUser]
+2022-07-12 10:26:32.734 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllUser]
+2022-07-12 10:26:32.759 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllUser]
+2022-07-12 10:26:42.349 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllUser]
+2022-07-12 10:26:42.375 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllUser]
+2022-07-12 10:42:39.912 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllUser]
+2022-07-12 10:42:39.957 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllUser]
+2022-07-12 10:43:13.451 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllGames]
+2022-07-12 10:43:13.468 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllGames]
+2022-07-12 10:43:16.427 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGame?id=1]
+2022-07-12 10:43:16.457 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGame?id=1]
+2022-07-12 10:43:16.460 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGameScreenshots]
+2022-07-12 10:43:16.462  WARN 5568 --- [http-nio-8081-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'gameId' for method parameter type int is not present]
+2022-07-12 10:43:16.463 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGameScreenshots]
+2022-07-12 11:33:24.985 DEBUG 5568 --- [http-nio-8081-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getUserByEmail?email=admin@admin.admin]
+2022-07-12 11:33:25.034 DEBUG 5568 --- [http-nio-8081-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getUserByEmail?email=admin@admin.admin]
+2022-07-12 11:33:25.046 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isBanned?id=5]
+2022-07-12 11:33:25.063 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isBanned?id=5]
+2022-07-12 11:33:25.067 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getCart]
+2022-07-12 11:33:25.070 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getCart]
+2022-07-12 11:33:25.075 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllGames]
+2022-07-12 11:33:25.092 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllGames]
+2022-07-12 11:33:25.103 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isAdmin?id=5]
+2022-07-12 11:33:25.120 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isAdmin?id=5]
+2022-07-12 11:33:30.719 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isAdmin?id=5]
+2022-07-12 11:33:30.733 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isAdmin?id=5]
+2022-07-12 11:33:32.963 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getUser?id=5]
+2022-07-12 11:33:32.991 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getUser?id=5]
+2022-07-12 11:33:32.996 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getUserLibrary?id=5]
+2022-07-12 11:33:33.019 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getUserLibrary?id=5]
+2022-07-12 11:33:33.032 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isAdmin?id=5]
+2022-07-12 11:33:33.048 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isAdmin?id=5]
+2022-07-12 11:33:36.866 DEBUG 5568 --- [http-nio-8081-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getUser?id=5]
+2022-07-12 11:33:36.884 DEBUG 5568 --- [http-nio-8081-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getUser?id=5]
+2022-07-12 11:34:16.299 DEBUG 5568 --- [http-nio-8081-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getUser?id=5]
+2022-07-12 11:34:16.327 DEBUG 5568 --- [http-nio-8081-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getUser?id=5]
+2022-07-12 11:34:16.333 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getUserLibrary?id=5]
+2022-07-12 11:34:16.352 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getUserLibrary?id=5]
+2022-07-12 11:34:16.361 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isAdmin?id=5]
+2022-07-12 11:34:16.382 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isAdmin?id=5]
+2022-07-12 11:34:21.588 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isBanned?id=5]
+2022-07-12 11:34:21.602 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isBanned?id=5]
+2022-07-12 11:34:21.605 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getCart]
+2022-07-12 11:34:21.607 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getCart]
+2022-07-12 11:34:21.612 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getAllGames]
+2022-07-12 11:34:21.632 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getAllGames]
+2022-07-12 11:34:21.639 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isAdmin?id=5]
+2022-07-12 11:34:21.652 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isAdmin?id=5]
+2022-07-12 11:34:24.333 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isBanned?id=5]
+2022-07-12 11:34:24.346 DEBUG 5568 --- [http-nio-8081-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isBanned?id=5]
+2022-07-12 11:34:24.351 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGame?id=1]
+2022-07-12 11:34:24.363 DEBUG 5568 --- [http-nio-8081-exec-8] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGame?id=1]
+2022-07-12 11:34:24.366 DEBUG 5568 --- [http-nio-8081-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGameScreenshots]
+2022-07-12 11:34:24.367  WARN 5568 --- [http-nio-8081-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'gameId' for method parameter type int is not present]
+2022-07-12 11:34:24.367 DEBUG 5568 --- [http-nio-8081-exec-9] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGameScreenshots]
+2022-07-12 11:34:24.374 DEBUG 5568 --- [http-nio-8081-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /haveGame?idofuser=5&idofgame=1]
+2022-07-12 11:34:24.385 DEBUG 5568 --- [http-nio-8081-exec-7] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /haveGame?idofuser=5&idofgame=1]
+2022-07-12 11:34:24.389 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /haveGame?idofuser=5&idofgame=1]
+2022-07-12 11:34:24.400 DEBUG 5568 --- [http-nio-8081-exec-10] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /haveGame?idofuser=5&idofgame=1]
+2022-07-12 11:34:29.997 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /isBanned?id=5]
+2022-07-12 11:34:30.013 DEBUG 5568 --- [http-nio-8081-exec-2] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /isBanned?id=5]
+2022-07-12 11:34:30.019 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGame?id=2]
+2022-07-12 11:34:30.032 DEBUG 5568 --- [http-nio-8081-exec-1] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGame?id=2]
+2022-07-12 11:34:30.036 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /getGameScreenshots]
+2022-07-12 11:34:30.036  WARN 5568 --- [http-nio-8081-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'gameId' for method parameter type int is not present]
+2022-07-12 11:34:30.036 DEBUG 5568 --- [http-nio-8081-exec-3] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /getGameScreenshots]
+2022-07-12 11:34:30.043 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /haveGame?idofuser=5&idofgame=2]
+2022-07-12 11:34:30.057 DEBUG 5568 --- [http-nio-8081-exec-5] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /haveGame?idofuser=5&idofgame=2]
+2022-07-12 11:34:30.061 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /haveGame?idofuser=5&idofgame=2]
+2022-07-12 11:34:30.074 DEBUG 5568 --- [http-nio-8081-exec-4] o.s.w.f.CommonsRequestLoggingFilter      : REQUEST DATA : POST /haveGame?idofuser=5&idofgame=2]
